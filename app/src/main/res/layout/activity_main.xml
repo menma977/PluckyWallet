@@ -18,15 +18,37 @@
       android:indeterminateDrawable="@drawable/progressbar_circular"
       android:background="@mipmap/ic_launcher_foreground"/>
 
-  <ProgressBar
-      android:id="@+id/progressBar"
-      android:layout_width="150dp"
-      android:layout_height="150dp"
-      android:indeterminate="false"
-      android:progressDrawable="@drawable/main_circular_progress_bar"
-      android:background="@drawable/main_circle_shape"
-      style="?android:attr/progressBarStyleHorizontal"
-      android:max="100"
-      android:progress="5"/>
+  <RelativeLayout
+      android:layout_width="200dp"
+      android:layout_height="200dp">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:indeterminate="false"
+        android:progressDrawable="@drawable/main_circular_progress_bar"
+        android:background="@drawable/main_circle_shape"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="100"
+        android:progress="60"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:contentDescription="@string/icon"
+        android:backgroundTint="@color/White"
+        android:background="@drawable/doge"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="55dp"/>
+
+  </RelativeLayout>
 
 </LinearLayout>
