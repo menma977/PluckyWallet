@@ -3,13 +3,13 @@
   <item>
     <shape android:shape="rectangle">
       <padding
-          android:top="15dp"
-          android:bottom="15dp"
-          android:left="15dp"
-          android:right="15dp"/>
+          android:top="8dp"
+          android:bottom="8dp"
+          android:left="8dp"
+          android:right="8dp"/>
       <solid android:color="@color/textBox"/>
       <corners
-          android:radius="10dp"/>
+          android:radius="30dp"/>
     </shape>
   </item>
 </layer-list>

@@ -1,4 +1,21 @@
 <resources>
-    <string name="app_name">Plucky Wallet</string>
+  <string name="app_name">Plucky Wallet</string>
   <string name="icon">icon</string>
+  <string name="username">Username</string>
+  <string name="password">Password</string>
+  <string name="login">login</string>
+  <string name="home">HOME</string>
+  <string name="network">NETWORK</string>
+  <string name="info">INFO</string>
+  <string name="upgrade">UPGRADE</string>
+  <string name="dollar">$</string>
+  <string name="zero">0</string>
+  <string name="doge">DOGE</string>
+  <string name="example_doge">99.99</string>
+  <string name="history_lot">History Lot</string>
+  <string name="income_doge">Income Doge</string>
+  <string name="outgo_doge">Outgo Doge</string>
+  <string name="automatic_stake">Automatic Stake</string>
+  <string name="manual_stake">Manual Stake</string>
+  <string name="setting">Setting</string>
 </resources>

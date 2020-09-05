@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.NavigationActivity"
+    android:gravity="center">
+
+  <FrameLayout
+      android:id="@+id/contentFragment"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      app:layout_constraintBottom_toTopOf="@id/nav_view"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintVertical_bias="0.0"
+      android:layout_marginBottom="20dp"/>
+
+  <LinearLayout
+      android:background="@drawable/card_default_footer"
+      android:id="@+id/nav_view"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:padding="5dp"
+      android:baselineAligned="false">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center">
+
+      <ImageButton
+          android:id="@+id/buttonHome"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          app:srcCompat="@drawable/home"
+          android:scaleType="fitCenter"
+          android:background="@color/Link"
+          android:contentDescription="@string/icon"/>
+
+      <TextView
+          android:text="@string/home"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAlignment="center"
+          android:textSize="12sp"
+          android:textColor="@color/textSecondary"
+          android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center">
+
+      <ImageButton
+          android:id="@+id/buttonNetwork"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          app:srcCompat="@drawable/network"
+          android:scaleType="fitCenter"
+          android:background="@color/Link"
+          android:contentDescription="@string/icon"/>
+
+      <TextView
+          android:text="@string/network"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAlignment="center"
+          android:textSize="12sp"
+          android:textColor="@color/textSecondary"
+          android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="50dp"
+        android:layout_height="60dp"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center">
+
+      <ImageButton
+          android:id="@+id/buttonInfo"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          app:srcCompat="@drawable/info"
+          android:scaleType="fitCenter"
+          android:background="@color/Link"
+          android:contentDescription="@string/icon"/>
+
+      <TextView
+          android:text="@string/info"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAlignment="center"
+          android:textSize="12sp"
+          android:textColor="@color/textSecondary"
+          android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center">
+
+      <ImageButton
+          android:id="@+id/buttonUpgrade"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          app:srcCompat="@drawable/upgrade_account"
+          android:scaleType="fitCenter"
+          android:background="@color/Link"
+          android:contentDescription="@string/icon"/>
+
+      <TextView
+          android:text="@string/upgrade"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAlignment="center"
+          android:textSize="12sp"
+          android:textColor="@color/textSecondary"
+          android:textStyle="bold"/>
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:clickable="true"
+      android:id="@+id/floatingActionButtonSendDoge"
+      android:focusable="true"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      android:layout_marginBottom="45dp"
+      app:backgroundTint="@color/White"
+      android:src="@drawable/to_send_doge"
+      app:fabSize="auto"
+      app:maxImageSize="55dp"
+      app:fabCustomSize="60dp"
+      app:elevation="0dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
