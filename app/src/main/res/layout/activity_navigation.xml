@@ -45,7 +45,9 @@
           app:srcCompat="@drawable/home"
           android:scaleType="fitCenter"
           android:background="@color/Link"
-          android:contentDescription="@string/icon"/>
+          android:contentDescription="@string/icon"
+          android:tint="@color/White"
+          android:backgroundTint="@color/Link"/>
 
       <TextView
           android:text="@string/home"
@@ -72,7 +74,9 @@
           app:srcCompat="@drawable/network"
           android:scaleType="fitCenter"
           android:background="@color/Link"
-          android:contentDescription="@string/icon"/>
+          android:contentDescription="@string/icon"
+          android:tint="@color/White"
+          android:backgroundTint="@color/Link"/>
 
       <TextView
           android:text="@string/network"
@@ -103,7 +107,9 @@
           app:srcCompat="@drawable/info"
           android:scaleType="fitCenter"
           android:background="@color/Link"
-          android:contentDescription="@string/icon"/>
+          android:contentDescription="@string/icon"
+          android:tint="@color/White"
+          android:backgroundTint="@color/Link"/>
 
       <TextView
           android:text="@string/info"
@@ -130,7 +136,9 @@
           app:srcCompat="@drawable/upgrade_account"
           android:scaleType="fitCenter"
           android:background="@color/Link"
-          android:contentDescription="@string/icon"/>
+          android:contentDescription="@string/icon"
+          android:tint="@color/White"
+          android:backgroundTint="@color/Link"/>
 
       <TextView
           android:text="@string/upgrade"
