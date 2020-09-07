@@ -15,6 +15,22 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
+    <activity android:name=".view.menu.UpgradeAccountActivity">
+    </activity>
+    <activity android:name=".view.menu.SendBalanceActivity">
+    </activity>
+    <activity android:name=".view.menu.ReceivedActivity">
+    </activity>
+    <activity android:name=".view.menu.NetworkActivity">
+    </activity>
+    <activity android:name=".view.menu.HistoryOutActivity">
+    </activity>
+    <activity android:name=".view.menu.HistoryInActivity">
+    </activity>
+    <activity android:name=".view.menu.HistoryLotActivity">
+    </activity>
+    <activity android:name=".view.menu.BotManualActivity">
+    </activity>
     <activity android:name=".view.LoginActivity">
     </activity>
     <activity

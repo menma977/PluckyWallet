@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.menu.UpgradeAccountActivity"
+    android:orientation="vertical"
+    android:background="@drawable/background">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:background="@drawable/card_default">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp">
+
+      <TextView
+          android:text="@string/dollar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@color/textSecondary"
+          android:textSize="14sp"
+          android:gravity="end"
+          android:layout_gravity="end"/>
+
+      <TextView
+          android:id="@+id/textViewDollar"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:textColor="@color/textSecondary"
+          android:textSize="18sp"
+          android:gravity="start"
+          android:text="@string/example_doge"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+      <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:background="@drawable/card_default_2"
+          android:orientation="vertical"
+          android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:textColor="@color/colorAccent"
+              android:textSize="14sp"
+              android:textAlignment="textEnd"
+              android:textStyle="bold"
+              android:hint="@string/example_doge"/>
+
+          <TextView
+              android:text="@string/doge"
+              android:layout_width="40dp"
+              android:layout_height="wrap_content"
+              android:textColor="@color/colorAccent"
+              android:textSize="12sp"
+              android:textAlignment="textEnd"
+              android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="5dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorAccent"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="5dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+          <TextView
+              android:text="@string/zero"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/colorAccent"
+              app:drawableStartCompat="@drawable/ic_baseline_local_parking"
+              app:drawableTint="@color/colorPrimary"/>
+
+          <Space
+              android:layout_width="10dp"
+              android:layout_height="wrap_content"/>
+
+          <TextView
+              android:text="@string/zero"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/colorAccent"
+              app:drawableStartCompat="@drawable/ic_baseline_emoji_events"
+              app:drawableTint="@color/colorPrimary"/>
+
+        </LinearLayout>
+
+      </LinearLayout>
+
+      <Space
+          android:layout_width="20dp"
+          android:layout_height="wrap_content"/>
+
+      <RelativeLayout
+          android:layout_width="150dp"
+          android:layout_height="150dp">
+
+        <ProgressBar
+            android:id="@+id/progressBarGrade"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/main_circular_progress_bar"
+            android:background="@drawable/main_circle_shape"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:max="100"
+            android:progress="20"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"/>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/icon"
+            android:backgroundTint="@color/White"
+            android:background="@drawable/doge"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="40dp"/>
+
+      </RelativeLayout>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
+  </LinearLayout>
+
+  <Space
+      android:layout_width="match_parent"
+      android:layout_height="5dp"/>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:background="@drawable/card_default_2"
+      android:padding="10dp"
+      android:layout_margin="10dp"
+      android:elevation="20dp">
+
+    <TextView
+        android:id="@+id/textViewUpgradeTo"
+        android:text="@string/upgrade_to"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+      <TextView
+          android:id="@+id/textViewLotPrice"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:textColor="@color/colorPrimary"/>
+
+      <TextView
+          android:id="@+id/textViewRequestPlucky"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:gravity="center"
+          android:textColor="@color/colorPrimary"/>
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberPassword"
+        android:ems="10"
+        android:id="@+id/editTextSecondaryPassword"
+        android:background="@drawable/edit_text_mode"
+        android:drawableStart="@drawable/ic_baseline_vpn_key"
+        android:drawableTint="@color/White"
+        android:textColor="@color/colorPrimary"
+        android:autofillHints="@string/password_transaction"
+        android:drawablePadding="10dp"
+        tools:ignore="LabelFor"
+        android:hint="@string/password_transaction"
+        android:textColorHint="@color/Dark"
+        android:maxLength="4"/>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <Button
+        android:text="@string/upgrade_now"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonBuy"
+        android:background="@drawable/button_default"
+        android:textColor="@color/textSecondary"/>
+
+  </LinearLayout>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:background="@drawable/card_default_2"
+          android:layout_marginTop="10dp"
+          android:layout_marginStart="20dp"
+          android:layout_marginEnd="20dp"
+          android:padding="10dp"
+          android:elevation="10dp"
+          android:id="@+id/linearLayoutDataContent"/>
+
+    </LinearLayout>
+
+  </ScrollView>
+
+  <Space
+      android:layout_width="match_parent"
+      android:layout_height="10dp"/>
+
+</LinearLayout>

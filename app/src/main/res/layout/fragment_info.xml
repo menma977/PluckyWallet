@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.fragment.InfoFragment"
+    android:orientation="vertical">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:padding="5dp"
+      android:gravity="center">
+
+    <ImageButton
+        android:src="?attr/actionModeCloseDrawable"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageButtonBack"
+        android:tint="@color/colorAccent"
+        android:backgroundTint="@color/Link"
+        android:contentDescription="@string/icon"
+        android:scaleType="fitCenter"/>
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@mipmap/ic_launcher_foreground"
+        android:contentDescription="@string/icon"/>
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:background="@drawable/card_default">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="10dp">
+
+      <TextView
+          android:text="@string/dollar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@color/textSecondary"
+          android:textSize="14sp"
+          android:gravity="end"
+          android:layout_gravity="end"/>
+
+      <TextView
+          android:id="@+id/textViewDollar"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:textColor="@color/textSecondary"
+          android:textSize="18sp"
+          android:gravity="start"
+          android:text="@string/example_doge"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+      <LinearLayout
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:background="@drawable/card_default_2"
+          android:orientation="vertical"
+          android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:textColor="@color/colorAccent"
+              android:textSize="14sp"
+              android:textAlignment="textEnd"
+              android:textStyle="bold"
+              android:hint="@string/example_doge"/>
+
+          <TextView
+              android:text="@string/doge"
+              android:layout_width="40dp"
+              android:layout_height="wrap_content"
+              android:textColor="@color/colorAccent"
+              android:textSize="12sp"
+              android:textAlignment="textEnd"
+              android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="5dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorAccent"/>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="5dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+          <TextView
+              android:text="@string/zero"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/colorAccent"
+              app:drawableStartCompat="@drawable/ic_baseline_local_parking"
+              app:drawableTint="@color/colorPrimary"/>
+
+          <Space
+              android:layout_width="10dp"
+              android:layout_height="wrap_content"/>
+
+          <TextView
+              android:text="@string/zero"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@color/colorAccent"
+              app:drawableStartCompat="@drawable/ic_baseline_emoji_events"
+              app:drawableTint="@color/colorPrimary"/>
+
+        </LinearLayout>
+
+      </LinearLayout>
+
+      <Space
+          android:layout_width="20dp"
+          android:layout_height="wrap_content"/>
+
+      <RelativeLayout
+          android:layout_width="150dp"
+          android:layout_height="150dp">
+
+        <ProgressBar
+            android:id="@+id/progressBarGrade"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:indeterminate="false"
+            android:progressDrawable="@drawable/main_circular_progress_bar"
+            android:background="@drawable/main_circle_shape"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:max="100"
+            android:progress="20"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"/>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/icon"
+            android:backgroundTint="@color/White"
+            android:background="@drawable/doge"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_margin="40dp"/>
+
+      </RelativeLayout>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="40dp"/>
+
+  </LinearLayout>
+
+  <Space
+      android:layout_width="match_parent"
+      android:layout_height="10dp"/>
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/card_default_2"
+      android:layout_marginStart="20dp"
+      android:layout_marginEnd="20dp"
+      android:padding="10dp"
+      android:elevation="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="300dp"
+        android:orientation="vertical">
+
+      <TextView
+          android:id="@+id/textViewUsername"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textColor="@color/colorPrimaryDark"
+          android:textSize="20sp"
+          android:textStyle="bold"
+          android:gravity="center"/>
+
+      <Space
+          android:layout_width="match_parent"
+          android:layout_height="5dp"/>
+
+      <TextView
+          android:id="@+id/textViewEmail"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textColor="@color/colorPrimaryDark"
+          android:textSize="14sp"
+          android:textStyle="bold"
+          android:gravity="center"/>
+
+      <Space
+          android:layout_width="match_parent"
+          android:layout_height="25dp"/>
+
+      <LinearLayout
+          android:id="@+id/linearLayoutWallet"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="center"
+          tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:text="@string/wallet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.15"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="start"/>
+
+        <TextView
+            android:id="@+id/textViewWallet"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="end"/>
+
+      </LinearLayout>
+
+      <Space
+          android:layout_width="match_parent"
+          android:layout_height="10dp"/>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/colorAccent"/>
+
+      <Space
+          android:layout_width="match_parent"
+          android:layout_height="10dp"/>
+
+      <LinearLayout
+          android:id="@+id/linearLayoutPin"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="center"
+          tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:text="@string/plucky"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="start"/>
+
+        <TextView
+            android:id="@+id/textViewPin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="end"/>
+
+      </LinearLayout>
+
+      <Space
+          android:layout_width="match_parent"
+          android:layout_height="10dp"/>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/colorAccent"/>
+
+      <Space
+          android:layout_width="match_parent"
+          android:layout_height="10dp"/>
+
+      <LinearLayout
+          android:id="@+id/linearLayoutEditPassword"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="center"
+          tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:text="@string/lot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="start"/>
+
+        <TextView
+            android:id="@+id/textViewGrade"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="end"/>
+
+      </LinearLayout>
+
+      <Space
+          android:layout_width="match_parent"
+          android:layout_height="10dp"/>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/colorAccent"/>
+
+      <Space
+          android:layout_width="match_parent"
+          android:layout_height="10dp"/>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="center"
+          tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:text="@string/contact_sponsor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="start"/>
+
+        <TextView
+            android:id="@+id/textViewSponsor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:gravity="end"
+            />
+
+      </LinearLayout>
+
+      <Space
+          android:layout_width="match_parent"
+          android:layout_height="10dp"/>
+
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="1dp"
+          android:background="@color/colorAccent"/>
+
+      <Space
+          android:layout_width="match_parent"
+          android:layout_height="20dp"/>
+
+    </LinearLayout>
+
+  </ScrollView>
+
+</LinearLayout>

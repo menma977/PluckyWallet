@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.menu.HistoryInActivity"
+    android:background="@drawable/background">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+      <Space
+          android:layout_width="10dp"
+          android:layout_height="wrap_content"/>
+
+      <Button
+          android:text="@string/preview"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:id="@+id/buttonPreview"
+          android:background="@drawable/button_default"
+          android:textColor="@color/textSecondary"/>
+
+      <Space
+          android:layout_width="10dp"
+          android:layout_height="wrap_content"/>
+
+      <Button
+          android:text="@string/next"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:id="@+id/buttonNext"
+          android:background="@drawable/button_default"
+          android:textColor="@color/textSecondary"/>
+
+      <Space
+          android:layout_width="10dp"
+          android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/card_default_2"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:padding="10dp"
+        android:elevation="10dp">
+
+      <TextView
+          android:text="@string/external"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textSize="17sp"
+          android:gravity="center"
+          android:textStyle="bold"
+          android:textColor="@color/colorPrimary"/>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:id="@+id/linearLayoutDataContentExternal"/>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/card_default_2"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:padding="10dp"
+        android:elevation="10dp">
+
+      <TextView
+          android:text="@string/internal"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textSize="17sp"
+          android:gravity="center"
+          android:textStyle="bold"
+          android:textColor="@color/colorPrimary"/>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:id="@+id/linearLayoutDataContent"/>
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+  </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.menu.SendBalanceActivity"
+    android:background="@drawable/background">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@drawable/card_default_2"
+        android:elevation="20dp">
+
+      <FrameLayout
+          android:id="@+id/frameLayoutScanner"
+          android:layout_width="match_parent"
+          android:layout_height="350dp"
+          android:background="@mipmap/ic_launcher_foreground"
+          android:layout_margin="10dp"/>
+
+      <TextView
+          android:text="@string/click_the_logo_to_scan_barcode"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center"
+          android:textColor="@color/colorAccent"
+          android:textSize="12sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/card_default_2"
+        android:layout_margin="20dp"
+        android:padding="10dp"
+        android:elevation="10dp">
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="50dp"
+          android:id="@+id/textViewBalance"
+          android:gravity="center"
+          android:textColor="@color/colorPrimaryDark"
+          android:textSize="12sp"
+          app:drawableTint="@color/colorPrimary"
+          app:drawableLeftCompat="@drawable/logo_doge_small"
+          android:drawablePadding="10dp"/>
+
+      <EditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="text"
+          android:ems="10"
+          android:id="@+id/editTextWallet"
+          android:background="@drawable/edit_text_mode"
+          android:drawableStart="@drawable/ic_baseline_account_balance_wallet"
+          android:drawableTint="@color/White"
+          android:textColor="@color/colorPrimary"
+          android:autofillHints="@string/destination_doge"
+          android:drawablePadding="10dp"
+          tools:ignore="LabelFor"
+          android:hint="@string/destination_doge"
+          android:textColorHint="@color/Dark"/>
+
+      <Space
+          android:layout_width="match_parent"
+          android:layout_height="10dp"/>
+
+      <EditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="numberDecimal"
+          android:ems="10"
+          android:id="@+id/editTextBalance"
+          android:background="@drawable/edit_text_mode"
+          android:drawableStart="@drawable/logo_doge_small"
+          android:drawableTint="@color/White"
+          android:textColor="@color/colorPrimary"
+          android:autofillHints="@string/example_doge"
+          android:drawablePadding="10dp"
+          tools:ignore="LabelFor"
+          android:hint="@string/amount"
+          android:textColorHint="@color/Dark"/>
+
+      <Space
+          android:layout_width="match_parent"
+          android:layout_height="10dp"/>
+
+      <EditText
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:inputType="numberPassword"
+          android:ems="10"
+          android:id="@+id/editTextSecondaryPassword"
+          android:background="@drawable/edit_text_mode"
+          android:drawableStart="@drawable/ic_baseline_vpn_key"
+          android:drawableTint="@color/White"
+          android:textColor="@color/colorPrimary"
+          android:autofillHints="@string/password_transaction"
+          android:drawablePadding="10dp"
+          tools:ignore="LabelFor"
+          android:hint="@string/password_transaction"
+          android:textColorHint="@color/Dark"
+          android:maxLength="4"/>
+
+      <Space
+          android:layout_width="match_parent"
+          android:layout_height="20dp"/>
+
+      <Button
+          android:text="@string/send_doge"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/buttonSend"
+          android:background="@drawable/button_default"
+          android:textColor="@color/textSecondary"/>
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+</ScrollView>

@@ -18,4 +18,23 @@
   <string name="automatic_stake">Automatic Stake</string>
   <string name="manual_stake">Manual Stake</string>
   <string name="setting">Setting</string>
+  <string name="amount">Amount</string>
+  <string name="fund">Fund</string>
+  <string name="stake">Stake</string>
+  <string name="preview">preview</string>
+  <string name="next">next</string>
+  <string name="external">External</string>
+  <string name="internal">Internal</string>
+  <string name="logo">Logo</string>
+  <string name="wallet">Wallet</string>
+  <string name="click_the_logo_to_scan_barcode">Click the logo to scan barcode</string>
+  <string name="destination_doge">Destination DOGE</string>
+  <string name="password_transaction">Password Transaction</string>
+  <string name="send_doge">Send DOGE</string>
+  <string name="upgrade_to">Upgrade To</string>
+  <string name="upgrade_now">Upgrade Now</string>
+  <string name="balance">Balance</string>
+  <string name="plucky">Plucky</string>
+  <string name="lot">LOT (Letter Of Transaction)</string>
+  <string name="contact_sponsor">Contact Sponsor</string>
 </resources>
