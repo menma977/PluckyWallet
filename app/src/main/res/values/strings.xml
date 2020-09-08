@@ -37,4 +37,6 @@
   <string name="plucky">Plucky</string>
   <string name="lot">LOT (Letter Of Transaction)</string>
   <string name="contact_sponsor">Contact Sponsor</string>
+  <string name="download_new_app">Download New App</string>
+  <string name="version">version</string>
 </resources>

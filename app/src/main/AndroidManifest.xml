@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.plucky.wallet">
 
   <uses-permission android:name="android.permission.INTERNET"/>
@@ -14,34 +15,70 @@
       android:label="@string/app_name"
       android:roundIcon="@mipmap/ic_launcher_round"
       android:supportsRtl="true"
-      android:theme="@style/AppTheme">
-    <activity android:name=".view.menu.UpgradeAccountActivity">
+      android:theme="@style/AppTheme"
+      tools:ignore="AllowBackup">
+    <service android:name=".config.BackgroundUserShow"/>
+    <service android:name=".config.BackgroundGetBalance"/>
+
+    <activity
+        android:name=".view.menu.UpgradeAccountActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".view.NavigationActivity"/>
     </activity>
-    <activity android:name=".view.menu.SendBalanceActivity">
+    <activity
+        android:name=".view.menu.SendBalanceActivity"
+        android:theme="@style/AppTheme.NoActionBar">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".view.NavigationActivity"/>
     </activity>
-    <activity android:name=".view.menu.ReceivedActivity">
+    <activity
+        android:name=".view.menu.HistoryOutActivity"
+        android:label="history Outcome">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".view.NavigationActivity"/>
     </activity>
-    <activity android:name=".view.menu.NetworkActivity">
+    <activity
+        android:name=".view.menu.HistoryInActivity"
+        android:label="History Income">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".view.NavigationActivity"/>
     </activity>
-    <activity android:name=".view.menu.HistoryOutActivity">
+    <activity
+        android:name=".view.menu.HistoryLotActivity"
+        android:label="@string/history_lot">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".view.NavigationActivity"/>
     </activity>
-    <activity android:name=".view.menu.HistoryInActivity">
+    <activity
+        android:name=".view.menu.BotManualActivity"
+        android:label="@string/manual_stake">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value=".view.NavigationActivity"/>
     </activity>
-    <activity android:name=".view.menu.HistoryLotActivity">
-    </activity>
-    <activity android:name=".view.menu.BotManualActivity">
-    </activity>
-    <activity android:name=".view.LoginActivity">
+    <activity
+        android:name=".view.LoginActivity"
+        android:theme="@style/AppTheme.NoActionBar">
     </activity>
     <activity
         android:name=".view.NavigationActivity"
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
-    <activity android:name=".MainActivity">
+    <activity
+        android:name=".MainActivity"
+        android:theme="@style/AppTheme.NoActionBar">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
         <category android:name="android.intent.category.LAUNCHER"/>
+
+        <action android:name="android.intent.action.VIEW"/>
       </intent-filter>
     </activity>
   </application>

@@ -6,7 +6,15 @@ object Url {
    * @return String
    */
   fun web(): String {
-    return "https://dogearn.net/api/"
+    return "https://pluckywin.com/wallet/api/"
+  }
+
+  /**
+   * fun web URL
+   * @return String
+   */
+  fun webOld(): String {
+    return "https://pluckywin.com/"
   }
 
   /**

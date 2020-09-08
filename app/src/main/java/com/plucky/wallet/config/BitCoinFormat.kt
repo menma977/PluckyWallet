@@ -24,4 +24,8 @@ class BitCoinFormat {
   fun toDollar(value: BigDecimal): BigDecimal {
     return value.setScale(2, BigDecimal.ROUND_HALF_DOWN)
   }
+
+  fun toPlucky(value: BigDecimal): BigDecimal {
+    return value.setScale(4, BigDecimal.ROUND_HALF_DOWN)
+  }
 }

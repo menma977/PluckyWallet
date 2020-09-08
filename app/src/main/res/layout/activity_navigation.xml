@@ -32,21 +32,20 @@
       android:baselineAligned="false">
 
     <LinearLayout
+        android:id="@+id/linearLayoutHome"
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center">
 
-      <ImageButton
-          android:id="@+id/buttonHome"
+      <ImageView
           android:layout_width="40dp"
           android:layout_height="40dp"
           app:srcCompat="@drawable/home"
           android:scaleType="fitCenter"
           android:background="@color/Link"
           android:contentDescription="@string/icon"
-          android:tint="@color/White"
           android:backgroundTint="@color/Link"/>
 
       <TextView
@@ -61,21 +60,20 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayoutReceived"
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center">
 
-      <ImageButton
-          android:id="@+id/buttonReceived"
+      <ImageView
           android:layout_width="40dp"
           android:layout_height="40dp"
           app:srcCompat="@drawable/network"
           android:scaleType="fitCenter"
           android:background="@color/Link"
           android:contentDescription="@string/icon"
-          android:tint="@color/White"
           android:backgroundTint="@color/Link"/>
 
       <TextView
@@ -94,21 +92,20 @@
         android:layout_height="60dp"/>
 
     <LinearLayout
+        android:id="@+id/linearLayoutInfo"
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center">
 
-      <ImageButton
-          android:id="@+id/buttonInfo"
+      <ImageView
           android:layout_width="40dp"
           android:layout_height="40dp"
           app:srcCompat="@drawable/info"
           android:scaleType="fitCenter"
           android:background="@color/Link"
           android:contentDescription="@string/icon"
-          android:tint="@color/White"
           android:backgroundTint="@color/Link"/>
 
       <TextView
@@ -123,21 +120,20 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayoutUpgrade"
         android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center">
 
-      <ImageButton
-          android:id="@+id/buttonUpgrade"
+      <ImageView
           android:layout_width="40dp"
           android:layout_height="40dp"
           app:srcCompat="@drawable/upgrade_account"
           android:scaleType="fitCenter"
           android:background="@color/Link"
           android:contentDescription="@string/icon"
-          android:tint="@color/White"
           android:backgroundTint="@color/Link"/>
 
       <TextView

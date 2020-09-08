@@ -3,31 +3,19 @@ package com.plucky.wallet.config
 import android.app.IntentService
 import android.content.Intent
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.plucky.wallet.model.User
 import com.plucky.wallet.controller.DogeController
+import com.plucky.wallet.model.User
 import org.json.JSONObject
-import java.lang.Thread.sleep
 import java.math.BigDecimal
-import java.math.MathContext
 
-/**
- * class BackgroundServiceBalance
- * @property response JSONObject
- * @property balanceValue BigDecimal
- * @property user User
- * @property bitCoinFormat BitCoinFormat
- * @property startBackgroundService Boolean
- * @property limitDepositDefault (java.math.BigDecimal..java.math.BigDecimal?)
- */
-class BackgroundServiceBalance : IntentService("BackgroundServiceBalance") {
+class BackgroundGetBalance : IntentService("BackgroundGetBalance") {
   private lateinit var response: JSONObject
   private lateinit var balanceValue: BigDecimal
   private lateinit var user: User
   private lateinit var bitCoinFormat: BitCoinFormat
   private var startBackgroundService: Boolean = false
-  private var limitDepositDefault = BigDecimal(0.000000000, MathContext.DECIMAL32).setScale(8, BigDecimal.ROUND_HALF_DOWN)
 
-  override fun onHandleIntent(intent: Intent?) {
+  override fun onHandleIntent(p0: Intent?) {
     user = User(this)
     bitCoinFormat = BitCoinFormat()
     val body = HashMap<String, String>()
@@ -42,7 +30,7 @@ class BackgroundServiceBalance : IntentService("BackgroundServiceBalance") {
     synchronized(trigger) {
       while (true) {
         val delta = System.currentTimeMillis() - time
-        if (delta >= 5000) {
+        if (delta >= 10000) {
           time = System.currentTimeMillis()
           val privateIntent = Intent()
           if (startBackgroundService) {
@@ -50,17 +38,17 @@ class BackgroundServiceBalance : IntentService("BackgroundServiceBalance") {
               response = DogeController(body).execute().get()
               if (response.getInt("code") == 200) {
                 balanceValue = response.getJSONObject("data")["Balance"].toString().toBigDecimal()
-                privateIntent.putExtra("balanceValue", balanceValue)
                 user.setString("balanceValue", balanceValue.toPlainString())
-                user.setString("balanceText", "${bitCoinFormat.decimalToDoge(balanceValue).toPlainString()} DOGE")
+                user.setString("balanceText", bitCoinFormat.decimalToDoge(balanceValue).toPlainString())
 
-                privateIntent.action = "net.dogearn.doge"
+                privateIntent.action = "plucky.wallet.balance.index"
                 LocalBroadcastManager.getInstance(this).sendBroadcast(privateIntent)
               } else {
-                sleep(60000)
+                Thread.sleep(60000)
               }
-            } catch (E: Exception) {
-              sleep(60000)
+            } catch (e: Exception) {
+              e.printStackTrace()
+              Thread.sleep(60000)
             }
           } else {
             break
