@@ -14,7 +14,7 @@ object Url {
    * @return String
    */
   fun webOld(): String {
-    return "https://pluckywin.com/"
+    return "https://pluckywin.com/api/trade/api.php"
   }
 
   /**

@@ -48,6 +48,17 @@
             android:gravity="start"
             android:text="@string/example_doge"/>
 
+        <TextView
+            android:id="@+id/textViewProgressLot"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/textSecondary"
+            android:textSize="12sp"
+            android:gravity="end"
+            android:text="@string/example_doge"
+            android:layout_marginEnd="20dp"/>
+
       </LinearLayout>
 
       <LinearLayout
@@ -116,8 +127,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorAccent"
-                app:drawableStartCompat="@drawable/ic_baseline_local_parking"
-                app:drawableTint="@color/colorPrimary"/>
+                android:drawablePadding="5dp"
+                app:drawableStartCompat="@drawable/icon_plucky"/>
 
             <Space
                 android:layout_width="10dp"
@@ -128,7 +139,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorAccent"
-                app:drawableStartCompat="@drawable/ic_baseline_emoji_events"
+                android:drawablePadding="5dp"
+                app:drawableStartCompat="@drawable/icon_lot"
                 app:drawableTint="@color/colorPrimary"/>
 
           </LinearLayout>
@@ -152,7 +164,7 @@
               android:background="@drawable/main_circle_shape"
               style="?android:attr/progressBarStyleHorizontal"
               android:max="100"
-              android:progress="20"
+              android:progress="0"
               android:layout_alignParentTop="true"
               android:layout_alignParentBottom="true"
               android:layout_alignParentEnd="true"
@@ -173,6 +185,16 @@
         </RelativeLayout>
 
       </LinearLayout>
+
+      <TextView
+          android:id="@+id/textViewTargetLot"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textColor="@color/textSecondary"
+          android:textSize="12sp"
+          android:gravity="end"
+          android:text="@string/example_doge"
+          android:layout_marginEnd="20dp"/>
 
       <Space
           android:layout_width="match_parent"
@@ -271,58 +293,58 @@
         android:layout_height="10dp"/>
 
     <Button
-      android:text="@string/stake"
-      android:layout_width="200dp"
-      android:layout_height="wrap_content"
-      android:id="@+id/buttonStake"
-      android:background="@drawable/button_success"
-      android:elevation="10dp"
-      android:textColor="@color/textSecondary"
-      android:layout_gravity="center"/>
+        android:text="@string/stake"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonStake"
+        android:background="@drawable/button_success"
+        android:elevation="10dp"
+        android:textColor="@color/textSecondary"
+        android:layout_gravity="center"/>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="10dp"/>
 
     <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:layout_margin="10dp"
-      android:elevation="5dp"
-      android:padding="15dp"
-      android:background="@drawable/card_default_2"
-      android:baselineAligned="false">
-
-    <LinearLayout
-        android:id="@+id/linearLayoutFund"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1"/>
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:elevation="5dp"
+        android:padding="15dp"
+        android:background="@drawable/card_default_2"
+        android:baselineAligned="false">
 
-    <LinearLayout
-        android:id="@+id/linearLayoutHigh"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1"/>
+      <LinearLayout
+          android:id="@+id/linearLayoutFund"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:layout_weight="1"/>
 
-    <LinearLayout
-        android:id="@+id/linearLayoutResult"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1"/>
+      <LinearLayout
+          android:id="@+id/linearLayoutHigh"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:layout_weight="1"/>
 
-    <LinearLayout
-        android:id="@+id/linearLayoutStatus"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1"/>
+      <LinearLayout
+          android:id="@+id/linearLayoutResult"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:layout_weight="1"/>
 
-  </LinearLayout>
+      <LinearLayout
+          android:id="@+id/linearLayoutStatus"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:layout_weight="1"/>
+
+    </LinearLayout>
 
   </LinearLayout>
 

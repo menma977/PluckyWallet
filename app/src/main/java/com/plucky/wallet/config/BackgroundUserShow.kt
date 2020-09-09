@@ -20,7 +20,7 @@ class BackgroundUserShow : IntentService("BackgroundUserShow") {
     synchronized(trigger) {
       while (true) {
         val delta = System.currentTimeMillis() - time
-        if (delta >= 10000) {
+        if (delta >= 5000) {
           time = System.currentTimeMillis()
           val privateIntent = Intent()
           if (startBackgroundService) {

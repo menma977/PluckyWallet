@@ -17,6 +17,7 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme"
       tools:ignore="AllowBackup">
+    <service android:name=".config.BackgroundGetPlucky"/>
     <service android:name=".config.BackgroundUserShow"/>
     <service android:name=".config.BackgroundGetBalance"/>
 

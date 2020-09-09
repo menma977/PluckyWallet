@@ -13,12 +13,10 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.plucky.wallet.MainActivity
 import com.plucky.wallet.R
-import com.plucky.wallet.config.BackgroundGetBalance
-import com.plucky.wallet.config.BackgroundUserShow
-import com.plucky.wallet.config.BitCoinFormat
-import com.plucky.wallet.config.Loading
+import com.plucky.wallet.config.*
 import com.plucky.wallet.controller.DogeController
 import com.plucky.wallet.controller.WebController
+import com.plucky.wallet.controller.WebOldController
 import com.plucky.wallet.model.Setting
 import com.plucky.wallet.model.User
 import com.plucky.wallet.view.fragment.HomeFragment
@@ -27,6 +25,8 @@ import com.plucky.wallet.view.fragment.ReceivedFragment
 import com.plucky.wallet.view.menu.SendBalanceActivity
 import com.plucky.wallet.view.menu.UpgradeAccountActivity
 import org.json.JSONObject
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import java.util.*
 import kotlin.concurrent.schedule
 
@@ -44,6 +44,7 @@ class NavigationActivity : AppCompatActivity() {
   private lateinit var goTo: Intent
   private lateinit var intentServiceUserShow: Intent
   private lateinit var intentServiceGetBalance: Intent
+  private lateinit var intentServiceGetPlucky: Intent
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -109,10 +110,13 @@ class NavigationActivity : AppCompatActivity() {
       intentServiceUserShow = Intent(applicationContext, BackgroundUserShow::class.java)
       startService(intentServiceUserShow)
 
-      LocalBroadcastManager.getInstance(applicationContext).registerReceiver(broadcastReceiverUserShow, IntentFilter("plucky.wallet.user.show"))
-
       intentServiceGetBalance = Intent(applicationContext, BackgroundGetBalance::class.java)
       startService(intentServiceGetBalance)
+
+      intentServiceGetPlucky = Intent(applicationContext, BackgroundGetPlucky::class.java)
+      startService(intentServiceGetPlucky)
+
+      LocalBroadcastManager.getInstance(applicationContext).registerReceiver(broadcastReceiverUserShow, IntentFilter("plucky.wallet.user.show"))
     }
   }
 
@@ -192,9 +196,7 @@ class NavigationActivity : AppCompatActivity() {
         user.setString("balanceText", bitCoinFormat.decimalToDoge(balanceValue).toPlainString())
 
         runOnUiThread {
-          loading.closeDialog()
-          val fragment = HomeFragment()
-          addFragment(fragment)
+          getPlucky()
         }
       } else {
         runOnUiThread {
@@ -202,6 +204,28 @@ class NavigationActivity : AppCompatActivity() {
           Toast.makeText(applicationContext, "Balance Error", Toast.LENGTH_LONG).show()
           user.setString("balanceValue", "0")
           user.setString("balanceText", "0")
+        }
+      }
+    }
+  }
+
+  private fun getPlucky() {
+    Timer().schedule(1000) {
+      val body = HashMap<String, String>()
+      body["a"] = "TotalPlucky"
+      body["username"] = user.getString("username")
+      body["ref"] = convert(user.getString("username") + "b0d0nk111179")
+      body["Referrals"] = "0"
+      body["Stats"] = "0"
+
+      response = WebOldController.Post(body).execute().get()
+      if (response.getInt("code") == 200) {
+        user.setString("plucky", response.getJSONObject("data").getString("totalplucky"))
+
+        runOnUiThread {
+          loading.closeDialog()
+          val fragment = HomeFragment()
+          addFragment(fragment)
         }
       }
     }
@@ -215,6 +239,7 @@ class NavigationActivity : AppCompatActivity() {
       response = WebController.Get("logout", user.getString("token")).execute().get()
       runOnUiThread {
         if (response.getInt("code") == 200) {
+          loading.closeDialog()
           user.clear()
           setting.clear()
           goTo = Intent(applicationContext, MainActivity::class.java)
@@ -223,6 +248,7 @@ class NavigationActivity : AppCompatActivity() {
           finishAffinity()
         } else {
           if (response.getString("data").contains("Unauthenticated.")) {
+            loading.closeDialog()
             user.clear()
             setting.clear()
             goTo = Intent(applicationContext, MainActivity::class.java)
@@ -247,5 +273,24 @@ class NavigationActivity : AppCompatActivity() {
       fragmentTransaction.addToBackStack(backStateName)
       fragmentTransaction.commit()
     }
+  }
+
+  fun convert(input: String): String {
+    val md5 = "MD5"
+    try {
+      val digest = MessageDigest.getInstance(md5)
+      digest.update(input.toByteArray())
+      val messageDigest = digest.digest()
+      val hexString = StringBuilder()
+      for (aMessageDigest in messageDigest) {
+        var h = Integer.toHexString(0xFF and aMessageDigest.toInt())
+        while (h.length < 2) h = "0$h"
+        hexString.append(h)
+      }
+      return hexString.toString()
+    } catch (e: NoSuchAlgorithmException) {
+      //e.printStackTrace()
+    }
+    return ""
   }
 }

@@ -73,6 +73,17 @@
           android:gravity="start"
           android:text="@string/example_doge"/>
 
+      <TextView
+          android:id="@+id/textViewProgressLot"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:textColor="@color/textSecondary"
+          android:textSize="12sp"
+          android:gravity="end"
+          android:text="@string/example_doge"
+          android:layout_marginEnd="20dp"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -143,8 +154,8 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:textColor="@color/colorAccent"
-              app:drawableStartCompat="@drawable/ic_baseline_local_parking"
-              app:drawableTint="@color/colorPrimary"/>
+              android:drawablePadding="5dp"
+              app:drawableStartCompat="@drawable/icon_plucky"/>
 
           <Space
               android:layout_width="10dp"
@@ -156,8 +167,9 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:textColor="@color/colorAccent"
-              app:drawableStartCompat="@drawable/ic_baseline_emoji_events"
-              app:drawableTint="@color/colorPrimary"/>
+              app:drawableTint="@color/colorPrimary"
+              android:drawablePadding="5dp"
+              app:drawableStartCompat="@drawable/icon_lot"/>
 
         </LinearLayout>
 
@@ -179,7 +191,7 @@
             android:progressDrawable="@drawable/main_circular_progress_bar"
             android:background="@drawable/main_circle_shape"
             style="?android:attr/progressBarStyleHorizontal"
-            android:max="0"
+            android:max="100"
             android:progress="0"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
@@ -201,6 +213,16 @@
       </RelativeLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewTargetLot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/textSecondary"
+        android:textSize="12sp"
+        android:gravity="end"
+        android:text="@string/example_doge"
+        android:layout_marginEnd="20dp"/>
 
     <Space
         android:layout_width="match_parent"
@@ -228,6 +250,7 @@
           tools:ignore="DisableBaselineAlignment">
 
         <LinearLayout
+            android:id="@+id/linearLayoutLot"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -253,6 +276,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayoutIncome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -278,6 +302,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayoutOutCome"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -314,6 +339,7 @@
           tools:ignore="DisableBaselineAlignment">
 
         <LinearLayout
+            android:id="@+id/linearLayoutAutomaticStake"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -339,6 +365,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linearLayoutManualStake"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -355,30 +382,6 @@
 
           <TextView
               android:text="@string/manual_stake"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:textAlignment="center"
-              android:textColor="@color/colorAccent"
-              android:textSize="12sp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            tools:ignore="UseCompoundDrawables">
-
-          <ImageView
-              android:layout_width="80dp"
-              android:layout_height="80dp"
-              app:srcCompat="@drawable/setting"
-              android:contentDescription="@string/icon"/>
-
-          <TextView
-              android:text="@string/setting"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:textAlignment="center"

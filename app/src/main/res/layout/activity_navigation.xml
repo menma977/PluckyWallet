@@ -70,14 +70,14 @@
       <ImageView
           android:layout_width="40dp"
           android:layout_height="40dp"
-          app:srcCompat="@drawable/network"
+          app:srcCompat="@drawable/barcode"
           android:scaleType="fitCenter"
           android:background="@color/Link"
           android:contentDescription="@string/icon"
           android:backgroundTint="@color/Link"/>
 
       <TextView
-          android:text="@string/network"
+          android:text="@string/barcode"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:textAlignment="center"

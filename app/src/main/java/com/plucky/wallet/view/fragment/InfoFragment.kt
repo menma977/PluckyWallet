@@ -30,6 +30,8 @@ class InfoFragment : Fragment() {
   private lateinit var balance: TextView
   private lateinit var plucky: TextView
   private lateinit var lot: TextView
+  private lateinit var lotProgress: TextView
+  private lateinit var lotTarget: TextView
   private lateinit var username: TextView
   private lateinit var email: TextView
   private lateinit var wallet: TextView
@@ -55,6 +57,8 @@ class InfoFragment : Fragment() {
     balance = root.findViewById(R.id.textViewBalance)
     plucky = root.findViewById(R.id.textViewPlucky)
     lot = root.findViewById(R.id.textViewLot)
+    lotProgress = root.findViewById(R.id.textViewProgressLot)
+    lotTarget = root.findViewById(R.id.textViewTargetLot)
     progressBar = root.findViewById(R.id.progressBarLot)
     username = root.findViewById(R.id.textViewUsername)
     email = root.findViewById(R.id.textViewEmail)
@@ -66,12 +70,14 @@ class InfoFragment : Fragment() {
     wallet.text = user.getString("wallet")
     sponsor.text = user.getString("phone")
 
+    plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
     lot.text = user.getInteger("lot").toString()
     val valueProgress = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotProgress")))
     val valueTarget = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotTarget")))
     dollarValue = user.getString("dollar").toBigDecimal()
-    progressBar.progress = valueProgress.toInt()
-    progressBar.max = valueTarget.toInt()
+    progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+    lotProgress.text = valueProgress.toPlainString()
+    lotTarget.text = valueTarget.toPlainString()
 
     balance.text = user.getString("balanceText")
     balanceValue = user.getString("balanceValue").toBigDecimal()
@@ -88,6 +94,7 @@ class InfoFragment : Fragment() {
   override fun onResume() {
     LocalBroadcastManager.getInstance(parentActivity.applicationContext).registerReceiver(broadcastReceiverUserShow, IntentFilter("plucky.wallet.user.show"))
     LocalBroadcastManager.getInstance(parentActivity.applicationContext).registerReceiver(broadcastReceiverGetBalance, IntentFilter("plucky.wallet.balance.index"))
+    LocalBroadcastManager.getInstance(parentActivity.applicationContext).registerReceiver(broadcastReceiverGetPlucky, IntentFilter("plucky.wallet.user.show.plucky"))
     super.onResume()
   }
 
@@ -103,8 +110,9 @@ class InfoFragment : Fragment() {
       val valueProgress = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotProgress")))
       val valueTarget = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotTarget")))
       dollarValue = user.getString("dollar").toBigDecimal()
-      progressBar.progress = valueProgress.toInt()
-      progressBar.max = valueTarget.toInt()
+      progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+      lotProgress.text = valueProgress.toPlainString()
+      lotTarget.text = valueTarget.toPlainString()
     }
   }
   private var broadcastReceiverGetBalance: BroadcastReceiver = object : BroadcastReceiver() {
@@ -113,6 +121,11 @@ class InfoFragment : Fragment() {
       balanceValue = user.getString("balanceValue").toBigDecimal()
       val countDollar = bitCoinFormat.decimalToDoge(balanceValue) * dollarValue
       dollar.text = bitCoinFormat.toDollar(countDollar).toPlainString()
+    }
+  }
+  private var broadcastReceiverGetPlucky: BroadcastReceiver = object : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+      plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
     }
   }
 }

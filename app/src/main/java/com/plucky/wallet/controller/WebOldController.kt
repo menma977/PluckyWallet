@@ -29,11 +29,11 @@ class WebOldController {
             val inputData: String = input.readLine()
             val convertJSON = JSONObject(inputData)
             when {
-              convertJSON["Status"] == "1" || convertJSON["Status"] == "2" -> {
+              convertJSON["code"] == 500 -> {
                 try {
-                  JSONObject().put("code", 500).put("data", convertJSON["Pesan"])
+                  JSONObject().put("code", 500).put("data", convertJSON["message"])
                 } catch (e: Exception) {
-                  JSONObject().put("code", 500).put("data", convertJSON["massage"])
+                  JSONObject().put("code", 500).put("data", convertJSON["message"])
                 }
               }
               else -> {
