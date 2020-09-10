@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -47,6 +48,7 @@ class HomeFragment : Fragment() {
   private lateinit var outComeButton: LinearLayout
   private lateinit var automaticStakeButton: LinearLayout
   private lateinit var manualStakeButton: LinearLayout
+  private lateinit var dogeChainButton: LinearLayout
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val root = inflater.inflate(R.layout.fragment_home, container, false)
@@ -71,13 +73,18 @@ class HomeFragment : Fragment() {
     outComeButton = root.findViewById(R.id.linearLayoutOutCome)
     automaticStakeButton = root.findViewById(R.id.linearLayoutAutomaticStake)
     manualStakeButton = root.findViewById(R.id.linearLayoutManualStake)
+    dogeChainButton = root.findViewById(R.id.linearLayoutDogeChain)
 
     plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
     lot.text = user.getInteger("lot").toString()
     val valueProgress = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotProgress")))
     val valueTarget = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotTarget")))
     dollarValue = user.getString("dollar").toBigDecimal()
-    progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+    try {
+      progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+    } catch (e: Exception) {
+      progressBar.progress = 0
+    }
     lotProgress.text = valueProgress.toPlainString()
     lotTarget.text = valueTarget.toPlainString()
 
@@ -106,6 +113,11 @@ class HomeFragment : Fragment() {
       startActivity(goTo)
     }
 
+    dogeChainButton.setOnClickListener {
+      goTo = Intent(Intent.ACTION_VIEW, Uri.parse("https://dogechain.info/address/${user.getString("wallet")}"))
+      startActivity(goTo)
+    }
+
     return root
   }
 
@@ -128,7 +140,11 @@ class HomeFragment : Fragment() {
       val valueProgress = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotProgress")))
       val valueTarget = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotTarget")))
       dollarValue = user.getString("dollar").toBigDecimal()
-      progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+      try {
+        progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+      } catch (e: Exception) {
+        progressBar.progress = 0
+      }
       lotProgress.text = valueProgress.toPlainString()
       lotTarget.text = valueTarget.toPlainString()
     }
