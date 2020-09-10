@@ -326,7 +326,7 @@
           tools:ignore="UseCompoundDrawables">
 
         <TextView
-            android:text="@string/contact_sponsor"
+            android:text="@string/phone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
