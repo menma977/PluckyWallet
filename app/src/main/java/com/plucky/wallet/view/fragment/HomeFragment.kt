@@ -22,6 +22,7 @@ import com.plucky.wallet.view.menu.BotManualActivity
 import com.plucky.wallet.view.menu.HistoryInActivity
 import com.plucky.wallet.view.menu.HistoryLotActivity
 import com.plucky.wallet.view.menu.HistoryOutActivity
+import com.plucky.wallet.view.menu.bot.BotMenuActivity
 import java.math.BigDecimal
 
 class HomeFragment : Fragment() {
@@ -113,6 +114,11 @@ class HomeFragment : Fragment() {
 
     dogeChainButton.setOnClickListener {
       goTo = Intent(Intent.ACTION_VIEW, Uri.parse("https://dogechain.info/address/${user.getString("wallet")}"))
+      startActivity(goTo)
+    }
+
+    automaticStakeButton.setOnClickListener {
+      goTo = Intent(parentActivity, BotMenuActivity::class.java)
       startActivity(goTo)
     }
 

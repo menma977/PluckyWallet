@@ -15,29 +15,44 @@ import java.io.InputStreamReader
 import java.util.concurrent.TimeUnit
 
 class WebOldController {
-  class Post(private var body: HashMap<String, String>) : AsyncTask<Void, Void, JSONObject>() {
+  class Post(private var type: Int, private var body: HashMap<String, String>) : AsyncTask<Void, Void, JSONObject>() {
     override fun doInBackground(vararg p0: Void?): JSONObject {
       return try {
         val client = OkHttpClient.Builder().connectTimeout(30, TimeUnit.SECONDS).writeTimeout(30, TimeUnit.SECONDS).readTimeout(30, TimeUnit.SECONDS).build()
         val mediaType: MediaType = "application/x-www-form-urlencoded".toMediaType()
         val body = MapToJson().map(body).toRequestBody(mediaType)
-        val request: Request = Request.Builder().url(Url.webOld()).post(body).build()
+        val request: Request = if (type == 1) {
+          Request.Builder().url(Url.webOld()).post(body).build()
+        } else {
+          Request.Builder().url(Url.webOld2()).post(body).build()
+        }
         val response: Response = client.newCall(request).execute()
         return when {
           response.isSuccessful -> {
             val input = BufferedReader(InputStreamReader(response.body!!.byteStream()))
             val inputData: String = input.readLine()
             val convertJSON = JSONObject(inputData)
-            when {
-              convertJSON["code"] == 500 -> {
-                try {
-                  JSONObject().put("code", 500).put("data", convertJSON["message"])
-                } catch (e: Exception) {
-                  JSONObject().put("code", 500).put("data", convertJSON["message"])
+            if (type == 1) {
+              when {
+                convertJSON["code"] == 500 -> {
+                  try {
+                    JSONObject().put("code", 500).put("data", convertJSON["message"])
+                  } catch (e: Exception) {
+                    JSONObject().put("code", 500).put("data", convertJSON["message"])
+                  }
+                }
+                else -> {
+                  JSONObject().put("code", 200).put("data", convertJSON)
                 }
               }
-              else -> {
-                JSONObject().put("code", 200).put("data", convertJSON)
+            } else {
+              when {
+                convertJSON["Status"] == "1" || convertJSON["Status"] == "2" -> {
+                  JSONObject().put("code", 500).put("data", convertJSON["Pesan"])
+                }
+                else -> {
+                  JSONObject().put("code", 200).put("data", convertJSON)
+                }
               }
             }
           }

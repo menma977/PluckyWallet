@@ -18,6 +18,14 @@ object Url {
   }
 
   /**
+   * fun web URL
+   * @return String
+   */
+  fun webOld2() : String {
+    return "https://pluckywin.com/api/trade/index.php"
+  }
+
+  /**
    * fun doge URL
    * @return String
    */

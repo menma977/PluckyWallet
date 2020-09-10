@@ -93,27 +93,4 @@ class WebController {
       }
     }
   }
-
-  class PostWebView(private var targetUrl: String, private var token: String, private var body: HashMap<String, String>) : AsyncTask<Void, Void, JSONObject>() {
-    override fun doInBackground(vararg params: Void?): JSONObject {
-      return try {
-        val client = OkHttpClient.Builder().connectTimeout(30, TimeUnit.SECONDS).writeTimeout(30, TimeUnit.SECONDS).readTimeout(30, TimeUnit.SECONDS).build()
-        val mediaType: MediaType = "application/x-www-form-urlencoded".toMediaType()
-        val body = MapToJson().map(body).toRequestBody(mediaType)
-        val request = Request.Builder()
-        request.url(Url.web() + targetUrl.replace(".", "/"))
-        request.post(body)
-        if (token.isNotEmpty()) {
-          request.addHeader("Authorization", "Bearer $token")
-        }
-        request.addHeader("Access-Control-Allow-Origin", "*")
-        request.addHeader("X-Requested-With", "XMLHttpRequest")
-        val response: Response = client.newCall(request.build()).execute()
-        val input = BufferedReader(InputStreamReader(response.body!!.byteStream()))
-        return JSONObject().put("code", 200).put("data", input.readText())
-      } catch (e: Exception) {
-        JSONObject().put("code", 500).put("data", e.message)
-      }
-    }
-  }
 }

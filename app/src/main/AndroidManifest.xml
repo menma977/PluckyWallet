@@ -17,6 +17,22 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme"
       tools:ignore="AllowBackup">
+    <activity
+        android:name=".view.menu.bot.BotMenuActivity"
+        android:theme="@style/AppTheme.NoActionBar"/>
+    <activity
+        android:name=".view.menu.bot.ResultActivity"
+        android:theme="@style/AppTheme.NoActionBar"/>
+    <activity
+        android:name=".view.menu.bot.bot3.Bot3Activity"
+        android:theme="@style/AppTheme.NoActionBar"/>
+    <activity
+        android:name=".view.menu.bot.bot2.Bot2Activity"
+        android:theme="@style/AppTheme.NoActionBar"/>
+    <activity
+        android:name=".view.menu.bot.bot1.Bot1Activity"
+        android:theme="@style/AppTheme.NoActionBar"/>
+
     <service android:name=".config.BackgroundGetPlucky"/>
     <service android:name=".config.BackgroundUserShow"/>
     <service android:name=".config.BackgroundGetBalance"/>

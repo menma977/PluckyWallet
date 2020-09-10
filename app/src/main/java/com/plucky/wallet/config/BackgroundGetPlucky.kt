@@ -32,7 +32,7 @@ class BackgroundGetPlucky : IntentService("BackgroundGetPlucky") {
           time = System.currentTimeMillis()
           val privateIntent = Intent()
           if (startBackgroundService) {
-            response = WebOldController.Post(body).execute().get()
+            response = WebOldController.Post(1, body).execute().get()
             try {
               if (response.getInt("code") == 200) {
                 user.setString("plucky", response.getJSONObject("data").getString("totalplucky"))

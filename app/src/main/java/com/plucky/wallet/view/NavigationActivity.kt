@@ -219,7 +219,8 @@ class NavigationActivity : AppCompatActivity() {
       body["Referrals"] = "0"
       body["Stats"] = "0"
 
-      response = WebOldController.Post(body).execute().get()
+      response = WebOldController.Post(1, body).execute().get()
+      println(response)
       if (response.getInt("code") == 200) {
         user.setString("plucky", response.getJSONObject("data").getString("totalplucky"))
 
