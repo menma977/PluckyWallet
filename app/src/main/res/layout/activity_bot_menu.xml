@@ -34,6 +34,30 @@
         android:hint="@string/example_doge"
         android:textColor="@color/colorAccent"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+      <TextView
+          android:text="@string/minimum_3000"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:textColor="@color/Danger"
+          android:layout_weight="1"
+          android:textSize="12sp"
+          android:gravity="center"/>
+
+      <TextView
+          android:text="@string/maximum_21000"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:textColor="@color/Danger"
+          android:textSize="12sp"
+          android:gravity="center"/>
+    </LinearLayout>
+
     <Button
         android:text="@string/start_bot_1"
         android:layout_width="match_parent"
