@@ -57,6 +57,10 @@ class BotMenuActivity : AppCompatActivity() {
     buttonBot1.setOnClickListener {
       if (editTextDoge.text.toString().isEmpty()) {
         Toast.makeText(this, "Doge cant be empty", Toast.LENGTH_SHORT).show()
+      } else if(editTextDoge.text.toString().toBigDecimal() < BigDecimal(3000)) {
+        Toast.makeText(this, "Minim doge 3000", Toast.LENGTH_SHORT).show()
+      } else if(editTextDoge.text.toString().toBigDecimal() > BigDecimal(21000)) {
+        Toast.makeText(this, "Max doge is 21000", Toast.LENGTH_SHORT).show()
       } else {
         startBot1()
       }
