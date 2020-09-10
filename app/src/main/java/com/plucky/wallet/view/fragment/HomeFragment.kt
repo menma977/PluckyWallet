@@ -9,10 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.plucky.wallet.R
@@ -21,6 +18,7 @@ import com.plucky.wallet.config.Loading
 import com.plucky.wallet.model.Setting
 import com.plucky.wallet.model.User
 import com.plucky.wallet.view.NavigationActivity
+import com.plucky.wallet.view.menu.BotManualActivity
 import com.plucky.wallet.view.menu.HistoryInActivity
 import com.plucky.wallet.view.menu.HistoryLotActivity
 import com.plucky.wallet.view.menu.HistoryOutActivity
@@ -116,6 +114,15 @@ class HomeFragment : Fragment() {
     dogeChainButton.setOnClickListener {
       goTo = Intent(Intent.ACTION_VIEW, Uri.parse("https://dogechain.info/address/${user.getString("wallet")}"))
       startActivity(goTo)
+    }
+
+    manualStakeButton.setOnClickListener {
+      if (user.getBoolean("isWin")) {
+        Toast.makeText(parentActivity, "Stake can only be used once a day", Toast.LENGTH_SHORT).show()
+      } else {
+        goTo = Intent(parentActivity, BotManualActivity::class.java)
+        startActivity(goTo)
+      }
     }
 
     return root
