@@ -390,6 +390,32 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linearLayoutDogeChain"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            tools:ignore="UseCompoundDrawables">
+
+
+          <ImageView
+              android:layout_width="80dp"
+              android:layout_height="80dp"
+              app:srcCompat="@drawable/doge_chain"
+              android:contentDescription="@string/icon"/>
+
+          <TextView
+              android:text="@string/doge_chain"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:textAlignment="center"
+              android:textColor="@color/colorAccent"
+              android:textSize="12sp"/>
+
+        </LinearLayout>
+
       </LinearLayout>
 
     </LinearLayout>
