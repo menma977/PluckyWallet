@@ -30,6 +30,7 @@ class InfoFragment : Fragment() {
   private lateinit var balance: TextView
   private lateinit var plucky: TextView
   private lateinit var lot: TextView
+  private lateinit var greade: TextView
   private lateinit var lotProgress: TextView
   private lateinit var lotTarget: TextView
   private lateinit var username: TextView
@@ -57,6 +58,7 @@ class InfoFragment : Fragment() {
     balance = root.findViewById(R.id.textViewBalance)
     plucky = root.findViewById(R.id.textViewPlucky)
     lot = root.findViewById(R.id.textViewLot)
+    greade = root.findViewById(R.id.textViewGrade)
     lotProgress = root.findViewById(R.id.textViewProgressLot)
     lotTarget = root.findViewById(R.id.textViewTargetLot)
     progressBar = root.findViewById(R.id.progressBarLot)
@@ -70,6 +72,7 @@ class InfoFragment : Fragment() {
     wallet.text = user.getString("wallet")
     sponsor.text = user.getString("phone")
 
+    greade.text = user.getString("grade")
     plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
     lot.text = user.getInteger("lot").toString()
     val valueProgress = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotProgress")))
@@ -134,6 +137,7 @@ class InfoFragment : Fragment() {
   private var broadcastReceiverGetPlucky: BroadcastReceiver = object : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
       plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
+      greade.text = user.getString("grade")
     }
   }
 }

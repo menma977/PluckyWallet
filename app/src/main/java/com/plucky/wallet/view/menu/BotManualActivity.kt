@@ -30,6 +30,7 @@ class BotManualActivity : AppCompatActivity() {
   private lateinit var balance: TextView
   private lateinit var plucky: TextView
   private lateinit var lot: TextView
+  private lateinit var greade: TextView
   private lateinit var lotProgress: TextView
   private lateinit var lotTarget: TextView
   private lateinit var progressBar: ProgressBar
@@ -75,6 +76,7 @@ class BotManualActivity : AppCompatActivity() {
     balance = findViewById(R.id.textViewBalance)
     plucky = findViewById(R.id.textViewPlucky)
     lot = findViewById(R.id.textViewLot)
+    greade = findViewById(R.id.textViewGrade)
     lotProgress = findViewById(R.id.textViewProgressLot)
     lotTarget = findViewById(R.id.textViewTargetLot)
     progressBar = findViewById(R.id.progressBarLot)
@@ -89,6 +91,7 @@ class BotManualActivity : AppCompatActivity() {
     resultLinearLayout = findViewById(R.id.linearLayoutResult)
     statusLinearLayout = findViewById(R.id.linearLayoutStatus)
 
+    greade.text = user.getString("grade")
     plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
     lot.text = user.getInteger("lot").toString()
     val valueProgress = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotProgress")))
@@ -363,6 +366,7 @@ class BotManualActivity : AppCompatActivity() {
   private var broadcastReceiverGetPlucky: BroadcastReceiver = object : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
       plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
+      greade.text = user.getString("grade")
     }
   }
 }

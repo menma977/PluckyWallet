@@ -28,7 +28,7 @@ class BackgroundGetPlucky : IntentService("BackgroundGetPlucky") {
     synchronized(trigger) {
       while (true) {
         val delta = System.currentTimeMillis() - time
-        if (delta >= 5000) {
+        if (delta >= 10000) {
           time = System.currentTimeMillis()
           val privateIntent = Intent()
           if (startBackgroundService) {
@@ -36,6 +36,7 @@ class BackgroundGetPlucky : IntentService("BackgroundGetPlucky") {
             try {
               if (response.getInt("code") == 200) {
                 user.setString("plucky", response.getJSONObject("data").getString("totalplucky"))
+                user.setString("grade", response.getJSONObject("data").getString("grade"))
                 privateIntent.action = "plucky.wallet.user.show.plucky"
                 LocalBroadcastManager.getInstance(this).sendBroadcast(privateIntent)
               } else {

@@ -14,6 +14,40 @@
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:background="@drawable/card_default_2"
+      android:layout_margin="20dp"
+      android:padding="10dp">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/editTextDoge"
+        android:background="@drawable/edit_text_mode"
+        android:drawableStart="@drawable/logo_doge_small"
+        android:drawableTint="@color/White"
+        android:autofillHints="@string/doge"
+        tools:ignore="LabelFor"
+        android:drawablePadding="10dp"
+        android:hint="@string/example_doge"
+        android:textColor="@color/colorAccent"/>
+
+    <Button
+        android:text="@string/start_bot_1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/buttonBot1"
+        android:background="@drawable/button_default"
+        android:textColor="@color/textSecondary"
+        android:layout_marginTop="10dp"/>
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
       android:orientation="horizontal"
       android:layout_margin="10dp"
       tools:ignore="DisableBaselineAlignment,UselessParent">
@@ -25,7 +59,8 @@
         android:layout_weight="1"
         android:orientation="vertical"
         android:gravity="center"
-        tools:ignore="UseCompoundDrawables">
+        tools:ignore="UseCompoundDrawables"
+        android:visibility="gone">
 
       <ImageButton
           android:layout_width="90dp"

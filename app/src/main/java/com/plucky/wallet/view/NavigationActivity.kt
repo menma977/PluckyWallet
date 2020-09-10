@@ -218,11 +218,10 @@ class NavigationActivity : AppCompatActivity() {
       body["ref"] = convert(user.getString("username") + "b0d0nk111179")
       body["Referrals"] = "0"
       body["Stats"] = "0"
-
       response = WebOldController.Post(1, body).execute().get()
-      println(response)
       if (response.getInt("code") == 200) {
         user.setString("plucky", response.getJSONObject("data").getString("totalplucky"))
+        user.setString("grade", response.getJSONObject("data").getString("grade"))
 
         runOnUiThread {
           loading.closeDialog()

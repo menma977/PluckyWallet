@@ -15,8 +15,8 @@
   <string name="history_lot">History Lot</string>
   <string name="income_doge">Income Doge</string>
   <string name="outgo_doge">Outgo Doge</string>
-  <string name="automatic_stake">Automatic Stake</string>
-  <string name="manual_stake">Manual Stake</string>
+  <string name="automatic_stake">Bot</string>
+  <string name="manual_stake">Stake</string>
   <string name="setting">Setting</string>
   <string name="amount">Amount</string>
   <string name="fund">Fund</string>
@@ -39,7 +39,7 @@
   <string name="contact_sponsor">Contact Sponsor</string>
   <string name="download_new_app">Download New App</string>
   <string name="version">version</string>
-  <string name="barcode">BARCODE</string>
+  <string name="barcode">WALLET</string>
   <string name="doge_chain">Doge Chain</string>
   <string name="phone">Phone</string>
   <string name="attention">Welcome to Plucky Robot doge :</string>
@@ -49,4 +49,5 @@
   <string name="bot_3">Bot 3</string>
   <string name="bot_1">Bot 1</string>
   <string name="bot_2">Bot 2</string>
+  <string name="start_bot_1">Start Bot 1</string>
 </resources>

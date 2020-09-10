@@ -32,6 +32,7 @@ class UpgradeAccountActivity : AppCompatActivity() {
   private lateinit var balance: TextView
   private lateinit var plucky: TextView
   private lateinit var lot: TextView
+  private lateinit var greade: TextView
   private lateinit var lotProgress: TextView
   private lateinit var lotTarget: TextView
   private lateinit var upgradeTo: TextView
@@ -66,6 +67,7 @@ class UpgradeAccountActivity : AppCompatActivity() {
     balance = findViewById(R.id.textViewBalance)
     plucky = findViewById(R.id.textViewPlucky)
     lot = findViewById(R.id.textViewLot)
+    greade = findViewById(R.id.textViewGrade)
     lotProgress = findViewById(R.id.textViewProgressLot)
     lotTarget = findViewById(R.id.textViewTargetLot)
     progressBar = findViewById(R.id.progressBarLot)
@@ -76,6 +78,7 @@ class UpgradeAccountActivity : AppCompatActivity() {
     container = findViewById(R.id.linearLayoutDataContent)
     buy = findViewById(R.id.buttonBuy)
 
+    greade.text = user.getString("grade")
     plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
     lot.text = user.getInteger("lot").toString()
     lotValue = user.getInteger("lot").toString().toBigDecimal()
@@ -291,6 +294,7 @@ class UpgradeAccountActivity : AppCompatActivity() {
   private var broadcastReceiverGetPlucky: BroadcastReceiver = object : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
       plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
+      greade.text = user.getString("grade")
     }
   }
 }

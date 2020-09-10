@@ -2,6 +2,8 @@ package com.plucky.wallet.view.menu.bot
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +36,8 @@ class BotMenuActivity : AppCompatActivity() {
   private lateinit var uniqueCode: String
   private val body = HashMap<String, String>()
   private lateinit var balanceValue: BigDecimal
+  private lateinit var editTextDoge: EditText
+  private lateinit var buttonBot1: Button
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -47,9 +51,15 @@ class BotMenuActivity : AppCompatActivity() {
     botMode1 = findViewById(R.id.imageButtonBot1)
     botMode2 = findViewById(R.id.imageButtonBot2)
     botMode3 = findViewById(R.id.imageButtonBot3)
+    editTextDoge = findViewById(R.id.editTextDoge)
+    buttonBot1 = findViewById(R.id.buttonBot1)
 
-    botMode1.setOnClickListener {
-      startBot1()
+    buttonBot1.setOnClickListener {
+      if (editTextDoge.text.toString().isEmpty()) {
+        Toast.makeText(this, "Doge cant be empty", Toast.LENGTH_SHORT).show()
+      } else {
+        startBot1()
+      }
     }
 
     botMode2.setOnClickListener {
@@ -69,7 +79,11 @@ class BotMenuActivity : AppCompatActivity() {
     body["usertrade"] = user.getString("usernameDoge")
     body["passwordtrade"] = user.getString("passwordDoge")
     body["notrx"] = uniqueCode
-    body["balanceawal"] = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
+    if (editTextDoge.text.toString().isNotEmpty()) {
+      body["balanceawal"] = BitCoinFormat().decimalToDoge(BitCoinFormat().dogeToDecimal(editTextDoge.text.toString().toBigDecimal())).toPlainString()
+    } else {
+      body["balanceawal"] = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
+    }
     body["ref"] = convert(user.getString("usernameDoge") + user.getString("passwordDoge") + uniqueCode + "balanceawalb0d0nk111179")
     return body
   }
