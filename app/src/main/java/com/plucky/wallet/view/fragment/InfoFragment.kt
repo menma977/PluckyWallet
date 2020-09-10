@@ -75,7 +75,11 @@ class InfoFragment : Fragment() {
     val valueProgress = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotProgress")))
     val valueTarget = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotTarget")))
     dollarValue = user.getString("dollar").toBigDecimal()
-    progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+    try {
+      progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+    } catch (e: Exception) {
+      progressBar.progress = 0
+    }
     lotProgress.text = valueProgress.toPlainString()
     lotTarget.text = valueTarget.toPlainString()
 
@@ -110,7 +114,11 @@ class InfoFragment : Fragment() {
       val valueProgress = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotProgress")))
       val valueTarget = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotTarget")))
       dollarValue = user.getString("dollar").toBigDecimal()
-      progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+      try {
+        progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+      } catch (e: Exception) {
+        progressBar.progress = 0
+      }
       lotProgress.text = valueProgress.toPlainString()
       lotTarget.text = valueTarget.toPlainString()
     }
