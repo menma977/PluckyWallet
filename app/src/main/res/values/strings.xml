@@ -40,4 +40,6 @@
   <string name="download_new_app">Download New App</string>
   <string name="version">version</string>
   <string name="barcode">BARCODE</string>
+  <string name="doge_chain">Doge Chain</string>
+  <string name="phone">Phone</string>
 </resources>
