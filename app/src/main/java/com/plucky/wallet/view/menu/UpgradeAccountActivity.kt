@@ -83,7 +83,11 @@ class UpgradeAccountActivity : AppCompatActivity() {
     val valueProgress = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotProgress")))
     val valueTarget = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotTarget")))
     dollarValue = user.getString("dollar").toBigDecimal()
-    progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+    try {
+      progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+    } catch (e: Exception) {
+      progressBar.progress = 0
+    }
     lotProgress.text = valueProgress.toPlainString()
     lotTarget.text = valueTarget.toPlainString()
 
@@ -100,6 +104,7 @@ class UpgradeAccountActivity : AppCompatActivity() {
   }
 
   private fun upgradeSet(type: Int) {
+    buy.visibility = Button.GONE
     loading.openDialog()
     val linearLayoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
     linearLayoutParams.setMargins(10, 10, 10, 10)
@@ -156,6 +161,7 @@ class UpgradeAccountActivity : AppCompatActivity() {
             lotPrice.text = "Request DOGE : ${bitCoinFormat.decimalToDoge(BigDecimal(lotValue))}"
             requestPlucky.text = "Request Plucky : ${bitCoinFormat.toPlucky(BigDecimal(pluckyValue))}"
             loading.closeDialog()
+            buy.visibility = Button.VISIBLE
           } else {
             onBuy()
           }
@@ -164,6 +170,7 @@ class UpgradeAccountActivity : AppCompatActivity() {
         runOnUiThread {
           Toast.makeText(applicationContext, "error when opening data. open the menu again to proceed", Toast.LENGTH_LONG).show()
           loading.closeDialog()
+          buy.visibility = Button.VISIBLE
           finish()
         }
       }
@@ -178,18 +185,21 @@ class UpgradeAccountActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "Secondary Password is required", Toast.LENGTH_SHORT).show()
             secondaryPassword.requestFocus()
             loading.closeDialog()
+            buy.visibility = Button.VISIBLE
           }
         }
         lotValue >= lotValueMax -> {
           runOnUiThread {
             Toast.makeText(applicationContext, "You are input max upgrade", Toast.LENGTH_SHORT).show()
             loading.closeDialog()
+            buy.visibility = Button.VISIBLE
           }
         }
         pluckyValue < pluckyValueServer -> {
           runOnUiThread {
             Toast.makeText(applicationContext, "your Plucky are less than demand", Toast.LENGTH_SHORT).show()
             loading.closeDialog()
+            buy.visibility = Button.VISIBLE
           }
         }
         else -> {
@@ -211,6 +221,7 @@ class UpgradeAccountActivity : AppCompatActivity() {
             runOnUiThread {
               Toast.makeText(applicationContext, response.getString("data"), Toast.LENGTH_LONG).show()
               loading.closeDialog()
+              buy.visibility = Button.VISIBLE
             }
           }
         }
@@ -220,7 +231,6 @@ class UpgradeAccountActivity : AppCompatActivity() {
 
   override fun onStart() {
     super.onStart()
-    loading.openDialog()
     Timer().schedule(1000) {
       intentServiceUserShow = Intent(applicationContext, BackgroundUserShow::class.java)
       startService(intentServiceUserShow)
@@ -236,7 +246,6 @@ class UpgradeAccountActivity : AppCompatActivity() {
       LocalBroadcastManager.getInstance(applicationContext).registerReceiver(broadcastReceiverGetBalance, IntentFilter("plucky.wallet.balance.index"))
 
       LocalBroadcastManager.getInstance(applicationContext).registerReceiver(broadcastReceiverGetPlucky, IntentFilter("plucky.wallet.user.show.plucky"))
-      loading.closeDialog()
     }
   }
 
@@ -262,7 +271,11 @@ class UpgradeAccountActivity : AppCompatActivity() {
       val valueProgress = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotProgress")))
       val valueTarget = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotTarget")))
       dollarValue = user.getString("dollar").toBigDecimal()
-      progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+      try {
+        progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+      } catch (e: Exception) {
+        progressBar.progress = 0
+      }
       lotProgress.text = valueProgress.toPlainString()
       lotTarget.text = valueTarget.toPlainString()
     }
