@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -56,6 +55,7 @@
           android:textColor="@color/Danger"
           android:textSize="12sp"
           android:gravity="center"/>
+
     </LinearLayout>
 
     <Button
@@ -69,98 +69,110 @@
 
   </LinearLayout>
 
+
   <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:layout_margin="10dp"
-      tools:ignore="DisableBaselineAlignment,UselessParent">
+      android:orientation="vertical"
+      android:background="@drawable/card_default_2"
+      android:layout_margin="20dp"
+      android:padding="10dp">
 
     <LinearLayout
-        android:id="@+id/linearLayoutLot"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center"
-        tools:ignore="UseCompoundDrawables"
-        android:visibility="gone">
-
-      <ImageButton
-          android:layout_width="90dp"
-          android:layout_height="90dp"
-          app:srcCompat="@drawable/bot1"
-          android:id="@+id/imageButtonBot1"
-          android:backgroundTint="@color/Link"
-          android:scaleType="fitCenter"
-          tools:ignore="ContentDescription"/>
+        android:orientation="horizontal">
 
       <TextView
-          android:text="@string/bot_1"
-          android:layout_width="match_parent"
+          android:id="@+id/textViewHigh2"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:textAlignment="center"
-          android:textColor="@color/textSecondary"
-          android:textSize="12sp"
+          android:layout_weight="1"
+          android:gravity="start"
+          android:textColor="@color/colorPrimary"
+          android:textStyle="bold"/>
+
+      <TextView
+          android:id="@+id/textViewBalance2"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:gravity="end"
+          android:textColor="@color/Danger"
           android:textStyle="bold"/>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
+    <SeekBar
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center"
-        tools:ignore="UseCompoundDrawables">
+        android:id="@+id/seekBarHigh2"
+        android:max="9"
+        android:progress="8"
+        android:progressDrawable="@drawable/seekbar_style"
+        android:thumb="@drawable/seek_bar_thumb"/>
 
-      <ImageButton
-          android:layout_width="90dp"
-          android:layout_height="90dp"
-          app:srcCompat="@drawable/bot2"
-          android:id="@+id/imageButtonBot2"
-          android:backgroundTint="@color/Link"
-          android:scaleType="fitCenter"
-          tools:ignore="ContentDescription"/>
+    <Button
+        android:text="@string/bot_2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/buttonBot2"
+        android:background="@drawable/button_default"
+        android:textColor="@color/textSecondary"
+        android:layout_marginTop="10dp"/>
+
+  </LinearLayout>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:background="@drawable/card_default_2"
+      android:layout_margin="20dp"
+      android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
       <TextView
-          android:text="@string/bot_2"
-          android:layout_width="match_parent"
+          android:id="@+id/textViewHigh3"
+          android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:textAlignment="center"
-          android:textColor="@color/textSecondary"
-          android:textSize="12sp"
+          android:layout_weight="1"
+          android:gravity="start"
+          android:textColor="@color/colorPrimary"
+          android:textStyle="bold"/>
+
+      <TextView
+          android:id="@+id/textViewBalance3"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:gravity="end"
+          android:textColor="@color/Danger"
           android:textStyle="bold"/>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
+    <SeekBar
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center"
-        tools:ignore="UseCompoundDrawables">
+        android:id="@+id/seekBarHigh3"
+        android:max="9"
+        android:progress="8"
+        android:progressDrawable="@drawable/seekbar_style"
+        android:thumb="@drawable/seek_bar_thumb"/>
 
-      <ImageButton
-          android:layout_width="90dp"
-          android:layout_height="90dp"
-          app:srcCompat="@drawable/bot3"
-          android:id="@+id/imageButtonBot3"
-          android:backgroundTint="@color/Link"
-          android:scaleType="fitCenter"
-          tools:ignore="ContentDescription"/>
-
-      <TextView
-          android:text="@string/bot_3"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:textAlignment="center"
-          android:textColor="@color/textSecondary"
-          android:textSize="12sp"
-          android:textStyle="bold"/>
-
-    </LinearLayout>
+    <Button
+        android:text="@string/bot_3"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/buttonBot3"
+        android:background="@drawable/button_default"
+        android:textColor="@color/textSecondary"
+        android:layout_marginTop="10dp"/>
 
   </LinearLayout>
 

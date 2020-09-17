@@ -2,10 +2,7 @@ package com.plucky.wallet.view.menu.bot
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.plucky.wallet.R
 import com.plucky.wallet.config.BitCoinFormat
@@ -30,51 +27,103 @@ class BotMenuActivity : AppCompatActivity() {
   private lateinit var user: User
   private lateinit var setting: Setting
   private lateinit var response: JSONObject
-  private lateinit var botMode1: ImageButton
-  private lateinit var botMode2: ImageButton
-  private lateinit var botMode3: ImageButton
+  private lateinit var botMode2: Button
+  private lateinit var botMode3: Button
   private lateinit var uniqueCode: String
   private val body = HashMap<String, String>()
   private lateinit var balanceValue: BigDecimal
   private lateinit var editTextDoge: EditText
   private lateinit var buttonBot1: Button
+  private lateinit var targetBalance: String
+  private lateinit var highSeekBar2: SeekBar
+  private lateinit var highSeekBar3: SeekBar
+  private lateinit var highText2: TextView
+  private lateinit var balanceText2: TextView
+  private lateinit var highText3: TextView
+  private lateinit var balanceText3: TextView
+  private var getProgress2: Int = 9
+  private var getProgress3: Int = 9
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_bot_menu)
 
-
     loading = Loading(this)
     user = User(this)
     setting = Setting(this)
 
-    botMode1 = findViewById(R.id.imageButtonBot1)
-    botMode2 = findViewById(R.id.imageButtonBot2)
-    botMode3 = findViewById(R.id.imageButtonBot3)
-    editTextDoge = findViewById(R.id.editTextDoge)
     buttonBot1 = findViewById(R.id.buttonBot1)
+    botMode2 = findViewById(R.id.buttonBot2)
+    botMode3 = findViewById(R.id.buttonBot3)
+    editTextDoge = findViewById(R.id.editTextDoge)
+    highSeekBar2 = findViewById(R.id.seekBarHigh2)
+    highSeekBar3 = findViewById(R.id.seekBarHigh3)
+    highText2 = findViewById(R.id.textViewHigh2)
+    balanceText2 = findViewById(R.id.textViewBalance2)
+    highText3 = findViewById(R.id.textViewHigh3)
+    balanceText3 = findViewById(R.id.textViewBalance3)
+
+    balanceValue = user.getString("balanceValue").toBigDecimal()
+
+    getProgress2 = (getProgress2 + 1) * 10
+    highSeekBar2.progress = getProgress2
+    highText2.text = "The Capital: $getProgress2%"
+    balanceText2.text = ((BitCoinFormat().decimalToDoge(balanceValue) * getProgress2.toBigDecimal()) / BigDecimal(100)).toPlainString() + " DOGE"
+
+    highSeekBar2.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+      override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+        getProgress2 = (progress + 1) * 10
+        highText2.text = "The Capital: $getProgress2%"
+        balanceText2.text = ((BitCoinFormat().decimalToDoge(balanceValue) * getProgress2.toBigDecimal()) / BigDecimal(100)).toPlainString() + " DOGE"
+      }
+
+      override fun onStartTrackingTouch(seekBar: SeekBar) {}
+      override fun onStopTrackingTouch(seekBar: SeekBar) {}
+    })
+
+    getProgress3 = (getProgress3 + 1) * 10
+    highSeekBar3.progress = getProgress3
+    highText3.text = "The Capital: $getProgress3%"
+    balanceText3.text = ((BitCoinFormat().decimalToDoge(balanceValue) * getProgress3.toBigDecimal()) / BigDecimal(100)).toPlainString() + " DOGE"
+
+    highSeekBar3.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+      override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+        getProgress3 = (progress + 1) * 10
+        highText3.text = "The Capital: $getProgress3%"
+        balanceText3.text = ((BitCoinFormat().decimalToDoge(balanceValue) * getProgress3.toBigDecimal()) / BigDecimal(100)).toPlainString() + " DOGE"
+      }
+
+      override fun onStartTrackingTouch(seekBar: SeekBar) {}
+      override fun onStopTrackingTouch(seekBar: SeekBar) {}
+    })
 
     buttonBot1.setOnClickListener {
-      if (editTextDoge.text.toString().isEmpty()) {
-        Toast.makeText(this, "Doge cant be empty", Toast.LENGTH_SHORT).show()
-      } else if(editTextDoge.text.toString().toBigDecimal() < BigDecimal(3000)) {
-        Toast.makeText(this, "Minim doge 3000", Toast.LENGTH_SHORT).show()
-      } else if(editTextDoge.text.toString().toBigDecimal() > BigDecimal(21000)) {
-        Toast.makeText(this, "Max doge is 21000", Toast.LENGTH_SHORT).show()
-      } else {
-        startBot1()
+      when {
+        editTextDoge.text.toString().isEmpty() -> {
+          Toast.makeText(this, "Doge cant be empty", Toast.LENGTH_SHORT).show()
+        }
+        editTextDoge.text.toString().toBigDecimal() < BigDecimal(3000) -> {
+          Toast.makeText(this, "Minim doge 3000", Toast.LENGTH_SHORT).show()
+        }
+        editTextDoge.text.toString().toBigDecimal() > BigDecimal(21000) -> {
+          Toast.makeText(this, "Max doge is 21000", Toast.LENGTH_SHORT).show()
+        }
+        else -> {
+          targetBalance = BitCoinFormat().decimalToDoge(BitCoinFormat().dogeToDecimal(editTextDoge.text.toString().toBigDecimal())).toPlainString()
+          startBot1()
+        }
       }
     }
 
     botMode2.setOnClickListener {
+      targetBalance = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
       startBot2()
     }
 
     botMode3.setOnClickListener {
+      targetBalance = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
       startBot3()
     }
-
-    balanceValue = user.getString("balanceValue").toBigDecimal()
   }
 
   private fun bodyBot(target: String): HashMap<String, String> {
@@ -83,11 +132,7 @@ class BotMenuActivity : AppCompatActivity() {
     body["usertrade"] = user.getString("usernameDoge")
     body["passwordtrade"] = user.getString("passwordDoge")
     body["notrx"] = uniqueCode
-    if (editTextDoge.text.toString().isNotEmpty()) {
-      body["balanceawal"] = BitCoinFormat().decimalToDoge(BitCoinFormat().dogeToDecimal(editTextDoge.text.toString().toBigDecimal())).toPlainString()
-    } else {
-      body["balanceawal"] = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
-    }
+    body["balanceawal"] = targetBalance
     body["ref"] = convert(user.getString("usernameDoge") + user.getString("passwordDoge") + uniqueCode + "balanceawalb0d0nk111179")
     return body
   }
@@ -133,6 +178,7 @@ class BotMenuActivity : AppCompatActivity() {
             goTo.putExtra("uniqueCode", uniqueCode)
             goTo.putExtra("balance", balanceValue)
             goTo.putExtra("target", response.getJSONObject("data").getDouble("persen").div(100).toBigDecimal())
+            goTo.putExtra("targetLow", getProgress2.toBigDecimal() / BigDecimal(100))
             runOnUiThread {
               startActivity(goTo)
               finish()
@@ -169,6 +215,7 @@ class BotMenuActivity : AppCompatActivity() {
             goTo.putExtra("uniqueCode", uniqueCode)
             goTo.putExtra("balance", balanceValue)
             goTo.putExtra("target", response.getJSONObject("data").getDouble("persen").div(100).toBigDecimal())
+            goTo.putExtra("targetLow", getProgress3.toBigDecimal() / BigDecimal(100))
             runOnUiThread {
               startActivity(goTo)
               finish()

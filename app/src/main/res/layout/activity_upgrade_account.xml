@@ -275,7 +275,7 @@
         tools:ignore="LabelFor"
         android:hint="@string/password_transaction"
         android:textColorHint="@color/Dark"
-        android:maxLength="4"/>
+        android:maxLength="6"/>
 
     <Space
         android:layout_width="match_parent"

@@ -71,8 +71,8 @@ class LoginActivity : AppCompatActivity() {
       version.text = intent.getStringExtra("version")
     }
 
-    username.setText("PLUCKY8")
-    password.setText("qwerty")
+//    username.setText("PLUCKY8")
+//    password.setText("qwerty")
 
     login.setOnClickListener {
       if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(

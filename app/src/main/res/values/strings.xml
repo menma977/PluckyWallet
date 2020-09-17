@@ -46,9 +46,9 @@
   <string name="description_attention">This robot can generate a minimum of 1% - 3% profit for you and a minimum of 0.5% for your sponsor. But plucky robots can also lose. If the robot does not generate profit doge, then the Plucky system will automatically replace it with a Plucky wallet that you can sell or use for upgrades.</string>
   <string name="game_description">Make sure your internet connection doesn\'t get disconnected in the middle of the game.</string>
   <string name="please_wait">Please wait</string>
-  <string name="bot_3">Bot 3</string>
-  <string name="bot_1">Bot 1</string>
-  <string name="bot_2">Bot 2</string>
+  <string name="bot_1">Start Bot 1</string>
+  <string name="bot_2">Start Bot 2</string>
+  <string name="bot_3">Start Bot 3</string>
   <string name="start_bot_1">Start Bot 1</string>
   <string name="minimum_3000">Minimum: 3000</string>
   <string name="maximum_21000">Maximum: 21000</string>
