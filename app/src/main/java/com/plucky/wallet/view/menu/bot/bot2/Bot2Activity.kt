@@ -69,7 +69,6 @@ class Bot2Activity : AppCompatActivity() {
     loading.openDialog()
     balance = intent.getSerializableExtra("balance") as BigDecimal
     balanceLimitTarget = intent.getSerializableExtra("target") as BigDecimal
-    balanceLimitTargetLow = intent.getSerializableExtra("targetLow") as BigDecimal
     balanceRemaining = balance
     balanceTarget = bitCoinFormat.dogeToDecimal(bitCoinFormat.decimalToDoge((balance * balanceLimitTarget) + balance))
     payIn = bitCoinFormat.dogeToDecimal(bitCoinFormat.decimalToDoge(balance) * BigDecimal(0.001))
