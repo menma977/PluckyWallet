@@ -57,12 +57,16 @@ class BotMenuActivity : AppCompatActivity() {
     balanceValue = user.getString("balanceValue").toBigDecimal()
 
     buttonBot1.setOnClickListener {
+      val balanceSet = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal())
       when {
         editTextDoge.text.toString().isEmpty() -> {
           Toast.makeText(this, "Doge cant be empty", Toast.LENGTH_SHORT).show()
         }
         editTextDoge.text.toString().toBigDecimal() < BigDecimal(3000) -> {
           Toast.makeText(this, "Minim doge 3000", Toast.LENGTH_SHORT).show()
+        }
+        editTextDoge.text.toString().toBigDecimal() > balanceSet -> {
+          Toast.makeText(this, "Max doge is $balanceSet", Toast.LENGTH_SHORT).show()
         }
         editTextDoge.text.toString().toBigDecimal() > BigDecimal(21000) -> {
           Toast.makeText(this, "Max doge is 21000", Toast.LENGTH_SHORT).show()
@@ -76,38 +80,49 @@ class BotMenuActivity : AppCompatActivity() {
     }
 
     botMode2.setOnClickListener {
+      val balanceSet = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal())
       when {
-        editTextDoge.text.toString().isEmpty() -> {
+        editTextDoge2.text.toString().isEmpty() -> {
           Toast.makeText(this, "Doge cant be empty", Toast.LENGTH_SHORT).show()
         }
-        editTextDoge.text.toString().toBigDecimal() < BigDecimal(3000) -> {
+        editTextDoge2.text.toString().toBigDecimal() < BigDecimal(3000) -> {
           Toast.makeText(this, "Minim doge 3000", Toast.LENGTH_SHORT).show()
         }
-        editTextDoge.text.toString().toBigDecimal() > BigDecimal(21000) -> {
+        editTextDoge2.text.toString().toBigDecimal() > balanceSet -> {
+          Toast.makeText(this, "Max doge is $balanceSet", Toast.LENGTH_SHORT).show()
+        }
+        editTextDoge2.text.toString().toBigDecimal() > BigDecimal(21000) -> {
           Toast.makeText(this, "Max doge is 21000", Toast.LENGTH_SHORT).show()
         }
         else -> {
           currentBalance = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
           beatingBalance = BitCoinFormat().decimalToDoge(BitCoinFormat().dogeToDecimal(editTextDoge2.text.toString().toBigDecimal())).toPlainString()
+          balanceValue = BitCoinFormat().dogeToDecimal(editTextDoge2.text.toString().toBigDecimal())
           startBot2()
         }
       }
     }
 
     botMode3.setOnClickListener {
+      val balanceSet = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal())
       when {
-        editTextDoge.text.toString().isEmpty() -> {
+        editTextDoge3.text.toString().isEmpty() -> {
           Toast.makeText(this, "Doge cant be empty", Toast.LENGTH_SHORT).show()
         }
-        editTextDoge.text.toString().toBigDecimal() < BigDecimal(3000) -> {
+        editTextDoge3.text.toString().toBigDecimal() < BigDecimal(3000) -> {
           Toast.makeText(this, "Minim doge 3000", Toast.LENGTH_SHORT).show()
         }
-        editTextDoge.text.toString().toBigDecimal() > BigDecimal(21000) -> {
+        editTextDoge3.text.toString().toBigDecimal() > balanceSet -> {
+          Toast.makeText(this, "Max doge is $balanceSet", Toast.LENGTH_SHORT).show()
+        }
+        editTextDoge3.text.toString().toBigDecimal() > BigDecimal(21000) -> {
           Toast.makeText(this, "Max doge is 21000", Toast.LENGTH_SHORT).show()
         }
         else -> {
           currentBalance = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
           beatingBalance = BitCoinFormat().decimalToDoge(BitCoinFormat().dogeToDecimal(editTextDoge3.text.toString().toBigDecimal())).toPlainString()
+          balanceValue = BitCoinFormat().dogeToDecimal(editTextDoge3.text.toString().toBigDecimal())
+
           startBot3()
         }
       }
