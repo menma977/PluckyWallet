@@ -129,7 +129,7 @@ class Bot3Activity : AppCompatActivity() {
           if (response["code"] == 200) {
             seed = response.getJSONObject("data")["Next"].toString()
             payOut = response.getJSONObject("data")["PayOut"].toString().toBigDecimal()
-            balanceRemaining = response.getJSONObject("data")["StartingBalance"].toString().toBigDecimal()
+            //balanceRemaining = response.getJSONObject("data")["StartingBalance"].toString().toBigDecimal()
             profit = payOut - payIn
             balanceRemaining += profit
             loseBot = profit < BigDecimal(0)
