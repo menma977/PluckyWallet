@@ -144,7 +144,7 @@ class HistoryInActivity : AppCompatActivity() {
         //description input sub container 1
         val address = TextView(applicationContext)
         address.layoutParams = addressParams
-        address.text = dataGrabberInternal.getJSONObject(i).getString("Address").replace("XFER", "Internal EARN")
+        address.text = dataGrabberInternal.getJSONObject(i).getString("Address").replace("XFER", "Internal PLUCKY")
         address.setTextColor(ContextCompat.getColor(applicationContext, R.color.colorPrimaryDark))
         address.gravity = Gravity.START
         containerLinearLayoutSub1.addView(address)
