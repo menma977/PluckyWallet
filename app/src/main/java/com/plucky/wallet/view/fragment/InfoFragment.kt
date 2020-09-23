@@ -36,7 +36,6 @@ class InfoFragment : Fragment() {
   private lateinit var username: TextView
   private lateinit var email: TextView
   private lateinit var wallet: TextView
-  private lateinit var sponsor: TextView
   private lateinit var progressBar: ProgressBar
   private lateinit var balanceValue: BigDecimal
   private lateinit var dollarValue: BigDecimal
@@ -65,12 +64,10 @@ class InfoFragment : Fragment() {
     username = root.findViewById(R.id.textViewUsername)
     email = root.findViewById(R.id.textViewEmail)
     wallet = root.findViewById(R.id.textViewWallet)
-    sponsor = root.findViewById(R.id.textViewSponsor)
 
     username.text = user.getString("username")
     email.text = user.getString("email")
     wallet.text = user.getString("wallet")
-    sponsor.text = user.getString("phone")
 
     greade.text = user.getString("grade")
     plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
