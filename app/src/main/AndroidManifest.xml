@@ -19,19 +19,24 @@
       tools:ignore="AllowBackup">
     <activity
         android:name=".view.menu.bot.BotMenuActivity"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        android:theme="@style/AppTheme.NoActionBar"
+        android:configChanges="orientation|screenSize"/>
     <activity
         android:name=".view.menu.bot.ResultActivity"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        android:theme="@style/AppTheme.NoActionBar"
+        android:configChanges="orientation|screenSize"/>
     <activity
         android:name=".view.menu.bot.bot3.Bot3Activity"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        android:theme="@style/AppTheme.NoActionBar"
+        android:configChanges="orientation|screenSize"/>
     <activity
         android:name=".view.menu.bot.bot2.Bot2Activity"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        android:theme="@style/AppTheme.NoActionBar"
+        android:configChanges="orientation|screenSize"/>
     <activity
         android:name=".view.menu.bot.bot1.Bot1Activity"
-        android:theme="@style/AppTheme.NoActionBar"/>
+        android:theme="@style/AppTheme.NoActionBar"
+        android:configChanges="orientation|screenSize"/>
 
     <service android:name=".config.BackgroundGetPlucky"/>
     <service android:name=".config.BackgroundUserShow"/>
@@ -39,57 +44,66 @@
 
     <activity
         android:name=".view.menu.UpgradeAccountActivity"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        android:configChanges="orientation|screenSize">
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
           android:value=".view.NavigationActivity"/>
     </activity>
     <activity
         android:name=".view.menu.SendBalanceActivity"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        android:configChanges="orientation|screenSize">
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
           android:value=".view.NavigationActivity"/>
     </activity>
     <activity
         android:name=".view.menu.HistoryOutActivity"
-        android:label="history Outcome">
+        android:label="history Outcome"
+        android:configChanges="orientation|screenSize">
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
           android:value=".view.NavigationActivity"/>
     </activity>
     <activity
         android:name=".view.menu.HistoryInActivity"
-        android:label="History Income">
+        android:label="History Income"
+        android:configChanges="orientation|screenSize">
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
           android:value=".view.NavigationActivity"/>
     </activity>
     <activity
         android:name=".view.menu.HistoryLotActivity"
-        android:label="@string/history_lot">
+        android:label="@string/history_lot"
+        android:configChanges="orientation|screenSize">
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
           android:value=".view.NavigationActivity"/>
     </activity>
     <activity
         android:name=".view.menu.BotManualActivity"
-        android:label="@string/manual_stake">
+        android:label="@string/manual_stake"
+        android:configChanges="orientation|screenSize">
       <meta-data
           android:name="android.support.PARENT_ACTIVITY"
           android:value=".view.NavigationActivity"/>
     </activity>
     <activity
         android:name=".view.LoginActivity"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        android:configChanges="orientation|screenSize">
     </activity>
     <activity
         android:name=".view.NavigationActivity"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        android:configChanges="orientation|screenSize">
     </activity>
     <activity
         android:name=".MainActivity"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        android:configChanges="orientation|screenSize">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
 
