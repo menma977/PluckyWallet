@@ -134,7 +134,19 @@ class HomeFragment : Fragment() {
       }
     }
 
+    onQueue()
+
     return root
+  }
+
+  private fun onQueue() {
+    if (user.getBoolean("onQueue")) {
+      automaticStakeButton.isEnabled = false
+      manualStakeButton.isEnabled = false
+    } else {
+      automaticStakeButton.isEnabled = true
+      manualStakeButton.isEnabled = true
+    }
   }
 
   override fun onResume() {
@@ -163,6 +175,8 @@ class HomeFragment : Fragment() {
       }
       lotProgress.text = valueProgress.toPlainString()
       lotTarget.text = valueTarget.toPlainString()
+
+      onQueue()
     }
   }
   private var broadcastReceiverGetBalance: BroadcastReceiver = object : BroadcastReceiver() {

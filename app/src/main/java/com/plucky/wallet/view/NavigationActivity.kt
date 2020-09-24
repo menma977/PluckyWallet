@@ -221,7 +221,8 @@ class NavigationActivity : AppCompatActivity() {
       response = WebOldController.Post(1, body).execute().get()
       if (response.getInt("code") == 200) {
         user.setString("plucky", response.getJSONObject("data").getString("totalplucky"))
-        user.setString("grade", response.getJSONObject("data").getString("grade"))
+        user.setString("grade", BitCoinFormat().toGrade(response.getJSONObject("data").getString("grade").toBigDecimal()).toPlainString())
+        user.setString("maxDeposit", response.getJSONObject("data").getString("maxdepo"))
 
         runOnUiThread {
           loading.closeDialog()

@@ -50,6 +50,6 @@
   <string name="bot_2">Start Bot 2</string>
   <string name="bot_3">Start Bot 3</string>
   <string name="start_bot_1">Start Bot 1</string>
-  <string name="minimum_3000">Minimum: 3000</string>
-  <string name="maximum_21000">Maximum: 21000</string>
+  <string name="minimum_3000">Min: 3000</string>
+  <string name="maximum_21000">Max: 22000</string>
 </resources>

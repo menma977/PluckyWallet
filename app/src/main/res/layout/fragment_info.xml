@@ -74,160 +74,144 @@
           android:gravity="start"
           android:text="@string/example_doge"/>
 
-      <TextView
-          android:id="@+id/textViewProgressLot"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:textColor="@color/textSecondary"
-          android:textSize="12sp"
-          android:gravity="end"
-          android:text="@string/example_doge"
-          android:layout_marginEnd="20dp"/>
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:background="@drawable/card_default_2"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
 
       <LinearLayout
-          android:layout_width="0dp"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:background="@drawable/card_default_2"
-          android:orientation="vertical"
-          android:padding="5dp">
+          android:orientation="horizontal"
+          android:gravity="center">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-          <TextView
-              android:id="@+id/textViewBalance"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="@color/colorAccent"
-              android:textSize="14sp"
-              android:textAlignment="textEnd"
-              android:textStyle="bold"
-              android:hint="@string/example_doge"/>
-
-          <TextView
-              android:text="@string/doge"
-              android:layout_width="40dp"
-              android:layout_height="wrap_content"
-              android:textColor="@color/colorAccent"
-              android:textSize="12sp"
-              android:textAlignment="textEnd"
-              android:textStyle="bold"/>
-
-        </LinearLayout>
-
-        <Space
+        <TextView
+            android:id="@+id/textViewBalance"
             android:layout_width="wrap_content"
-            android:layout_height="5dp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@color/colorAccent"/>
-
-        <Space
-            android:layout_width="wrap_content"
-            android:layout_height="5dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="start">
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp"
+            android:textAlignment="textEnd"
+            android:textStyle="bold"
+            android:hint="@string/example_doge"/>
 
-          <TextView
-              android:id="@+id/textViewPlucky"
-              android:text="@string/zero"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="@color/colorAccent"
-              android:drawablePadding="5dp"
-              app:drawableStartCompat="@drawable/icon_plucky"/>
-
-          <Space
-              android:layout_width="10dp"
-              android:layout_height="wrap_content"/>
-
-          <TextView
-              android:id="@+id/textViewLot"
-              android:text="@string/zero"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="@color/colorAccent"
-              app:drawableTint="@color/colorPrimary"
-              android:drawablePadding="5dp"
-              app:drawableStartCompat="@drawable/icon_lot"/>
-
-          <Space
-              android:layout_width="10dp"
-              android:layout_height="wrap_content"/>
-
-          <TextView
-              android:id="@+id/textViewGrade"
-              android:text="@string/zero"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="@color/colorAccent"
-              app:drawableTint="@color/colorPrimary"
-              android:drawablePadding="5dp"
-              app:drawableStartCompat="@drawable/grade"/>
-
-        </LinearLayout>
+        <TextView
+            android:text="@string/doge"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp"
+            android:textAlignment="textEnd"
+            android:textStyle="bold"/>
 
       </LinearLayout>
 
       <Space
-          android:layout_width="20dp"
-          android:layout_height="wrap_content"/>
+          android:layout_width="wrap_content"
+          android:layout_height="5dp"/>
 
-      <RelativeLayout
-          android:layout_width="150dp"
-          android:layout_height="150dp">
+      <View
+          android:layout_width="match_parent"
+          android:layout_height="2dp"
+          android:background="@color/colorAccent"/>
 
-        <ProgressBar
-            android:id="@+id/progressBarLot"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:indeterminate="false"
-            android:progressDrawable="@drawable/main_circular_progress_bar"
-            android:background="@drawable/main_circle_shape"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:max="100"
-            android:progress="0"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentStart="true"/>
+      <Space
+          android:layout_width="wrap_content"
+          android:layout_height="5dp"/>
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:contentDescription="@string/icon"
-            android:backgroundTint="@color/White"
-            android:background="@drawable/doge"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentStart="true"
-            android:layout_margin="40dp"/>
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="start">
 
-      </RelativeLayout>
+        <TextView
+            android:id="@+id/textViewPlucky"
+            android:text="@string/zero"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorAccent"
+            android:drawablePadding="5dp"
+            app:drawableStartCompat="@drawable/icon_plucky"/>
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/textViewLot"
+            android:text="@string/zero"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorAccent"
+            app:drawableTint="@color/colorPrimary"
+            android:drawablePadding="5dp"
+            app:drawableStartCompat="@drawable/icon_lot"/>
+
+        <Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/textViewGrade"
+            android:text="@string/zero"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorAccent"
+            app:drawableTint="@color/colorPrimary"
+            android:drawablePadding="5dp"
+            app:drawableStartCompat="@drawable/grade"/>
+
+      </LinearLayout>
 
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
+
+      <ProgressBar
+          android:id="@+id/progressBarLot"
+          android:layout_width="match_parent"
+          android:layout_height="25dp"
+          android:indeterminate="false"
+          android:progressDrawable="@drawable/progress_main"
+          style="?android:attr/progressBarStyleHorizontal"
+          android:max="100"
+          android:progress="10"/>
+
+      <TextView
+          android:id="@+id/textViewProgressLot"
+          android:text="@string/example_doge"
+          android:background="@color/Link"
+          android:textColor="@color/textSecondary"
+          android:textStyle="bold"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_alignParentStart="true"
+          android:layout_alignParentEnd="true"
+          android:gravity="center"
+          android:layout_alignParentBottom="true"
+          android:layout_marginBottom="3dp"
+          android:layout_marginTop="3dp"
+          android:layout_alignParentTop="true"
+          android:layout_marginStart="0dp"
+          android:layout_marginEnd="0dp"/>
+
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/textViewTargetLot"

@@ -1,12 +1,16 @@
 package com.plucky.wallet.view.menu.bot
 
+import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.plucky.wallet.R
-import com.plucky.wallet.config.BitCoinFormat
-import com.plucky.wallet.config.Loading
+import com.plucky.wallet.config.*
 import com.plucky.wallet.controller.WebOldController
 import com.plucky.wallet.model.Setting
 import com.plucky.wallet.model.User
@@ -26,18 +30,36 @@ class BotMenuActivity : AppCompatActivity() {
   private lateinit var loading: Loading
   private lateinit var user: User
   private lateinit var setting: Setting
+  private lateinit var bitCoinFormat: BitCoinFormat
   private lateinit var response: JSONObject
   private lateinit var botMode2: Button
   private lateinit var botMode3: Button
   private lateinit var uniqueCode: String
   private val body = HashMap<String, String>()
   private lateinit var balanceValue: BigDecimal
+  private lateinit var dollarValue: BigDecimal
   private lateinit var buttonBot1: Button
   private lateinit var currentBalance: String
   private lateinit var beatingBalance: String
   private lateinit var editTextDoge: EditText
   private lateinit var editTextDoge2: EditText
   private lateinit var editTextDoge3: EditText
+  private lateinit var maxDepositText: TextView
+  private lateinit var maxDepositText2: TextView
+  private lateinit var maxDepositText3: TextView
+  private lateinit var dollar: TextView
+  private lateinit var balance: TextView
+  private lateinit var plucky: TextView
+  private lateinit var lot: TextView
+  private lateinit var greade: TextView
+  private lateinit var lotProgress: TextView
+  private lateinit var lotTarget: TextView
+  private lateinit var progressBar: ProgressBar
+  private var lotValue: BigDecimal = BigDecimal(1)
+  private var pluckyValue: BigDecimal = BigDecimal(0)
+  private lateinit var intentServiceUserShow: Intent
+  private lateinit var intentServiceGetBalance: Intent
+  private lateinit var intentServiceGetPlucky: Intent
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -46,6 +68,18 @@ class BotMenuActivity : AppCompatActivity() {
     loading = Loading(this)
     user = User(this)
     setting = Setting(this)
+    bitCoinFormat = BitCoinFormat()
+
+    loading.openDialog()
+
+    dollar = findViewById(R.id.textViewDollar)
+    balance = findViewById(R.id.textViewBalance)
+    plucky = findViewById(R.id.textViewPlucky)
+    lot = findViewById(R.id.textViewLot)
+    greade = findViewById(R.id.textViewGrade)
+    lotProgress = findViewById(R.id.textViewProgressLot)
+    lotTarget = findViewById(R.id.textViewTargetLot)
+    progressBar = findViewById(R.id.progressBarLot)
 
     buttonBot1 = findViewById(R.id.buttonBot1)
     botMode2 = findViewById(R.id.buttonBot2)
@@ -53,8 +87,30 @@ class BotMenuActivity : AppCompatActivity() {
     editTextDoge = findViewById(R.id.editTextDoge)
     editTextDoge2 = findViewById(R.id.editTextDoge2)
     editTextDoge3 = findViewById(R.id.editTextDoge3)
+    maxDepositText = findViewById(R.id.maxDeposit)
+    maxDepositText2 = findViewById(R.id.maxDeposit2)
+    maxDepositText3 = findViewById(R.id.maxDeposit3)
 
+    greade.text = user.getString("grade")
+    plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
+    lot.text = user.getInteger("lot").toString()
+    lotValue = user.getInteger("lot").toString().toBigDecimal()
+    pluckyValue = user.getString("plucky").toBigDecimal()
+    val valueProgress = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotProgress")))
+    val valueTarget = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotTarget")))
+    dollarValue = user.getString("dollar").toBigDecimal()
+    try {
+      progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+    } catch (e: Exception) {
+      progressBar.progress = 0
+    }
+    lotProgress.text = valueProgress.toPlainString()
+    lotTarget.text = valueTarget.toPlainString()
+
+    balance.text = user.getString("balanceText")
     balanceValue = user.getString("balanceValue").toBigDecimal()
+    val countDollar = bitCoinFormat.decimalToDoge(balanceValue) * dollarValue
+    dollar.text = bitCoinFormat.toDollar(countDollar).toPlainString()
 
     buttonBot1.setOnClickListener {
       val balanceSet = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal())
@@ -62,8 +118,14 @@ class BotMenuActivity : AppCompatActivity() {
         editTextDoge.text.toString().isEmpty() -> {
           Toast.makeText(this, "Doge cant be empty", Toast.LENGTH_SHORT).show()
         }
+        editTextDoge.text.toString().toBigDecimal() < BigDecimal(3000) -> {
+          Toast.makeText(this, "Min doge is 3000", Toast.LENGTH_SHORT).show()
+        }
         editTextDoge.text.toString().toBigDecimal() > balanceSet -> {
           Toast.makeText(this, "Max doge is $balanceSet", Toast.LENGTH_SHORT).show()
+        }
+        editTextDoge.text.toString().toBigDecimal() < BigDecimal(22000) -> {
+          Toast.makeText(this, "Max doge is 22000", Toast.LENGTH_SHORT).show()
         }
         else -> {
           currentBalance = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
@@ -79,8 +141,14 @@ class BotMenuActivity : AppCompatActivity() {
         editTextDoge2.text.toString().isEmpty() -> {
           Toast.makeText(this, "Doge cant be empty", Toast.LENGTH_SHORT).show()
         }
+        editTextDoge2.text.toString().toBigDecimal() < BigDecimal(3000) -> {
+          Toast.makeText(this, "Min doge is 3000", Toast.LENGTH_SHORT).show()
+        }
         editTextDoge2.text.toString().toBigDecimal() > balanceSet -> {
           Toast.makeText(this, "Max doge is $balanceSet", Toast.LENGTH_SHORT).show()
+        }
+        editTextDoge2.text.toString().toBigDecimal() < user.getString("maxDeposit").toBigDecimal() -> {
+          Toast.makeText(this, "Max doge is ${user.getString("maxDeposit").toBigDecimal()}", Toast.LENGTH_SHORT).show()
         }
         else -> {
           currentBalance = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
@@ -97,8 +165,14 @@ class BotMenuActivity : AppCompatActivity() {
         editTextDoge3.text.toString().isEmpty() -> {
           Toast.makeText(this, "Doge cant be empty", Toast.LENGTH_SHORT).show()
         }
+        editTextDoge3.text.toString().toBigDecimal() < BigDecimal(3000) -> {
+          Toast.makeText(this, "Min doge is 3000", Toast.LENGTH_SHORT).show()
+        }
         editTextDoge3.text.toString().toBigDecimal() > balanceSet -> {
           Toast.makeText(this, "Max doge is $balanceSet", Toast.LENGTH_SHORT).show()
+        }
+        editTextDoge3.text.toString().toBigDecimal() < user.getString("maxDeposit").toBigDecimal() -> {
+          Toast.makeText(this, "Max doge is ${user.getString("maxDeposit").toBigDecimal()}", Toast.LENGTH_SHORT).show()
         }
         else -> {
           currentBalance = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
@@ -106,6 +180,47 @@ class BotMenuActivity : AppCompatActivity() {
           balanceValue = BitCoinFormat().dogeToDecimal(editTextDoge3.text.toString().toBigDecimal())
 
           startBot3()
+        }
+      }
+    }
+
+    getPlucky()
+  }
+
+  private fun getPlucky() {
+    Timer().schedule(1000) {
+      val body = HashMap<String, String>()
+      body["a"] = "TotalPlucky"
+      body["username"] = user.getString("username")
+      body["ref"] = convert(user.getString("username") + "b0d0nk111179")
+      body["Referrals"] = "0"
+      body["Stats"] = "0"
+      response = WebOldController.Post(1, body).execute().get()
+      if (response.getInt("code") == 200) {
+        user.setString("plucky", response.getJSONObject("data").getString("totalplucky"))
+        user.setString("grade", BitCoinFormat().toGrade(response.getJSONObject("data").getString("grade").toBigDecimal()).toPlainString())
+        user.setString("maxDeposit", response.getJSONObject("data").getString("maxdepo"))
+
+        runOnUiThread {
+          val balanceSet = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal())
+          if (balanceSet < user.getString("maxDeposit").toBigDecimal()) {
+            editTextDoge2.setText(balanceSet.toPlainString())
+            editTextDoge3.setText(balanceSet.toPlainString())
+          } else {
+            editTextDoge2.setText(user.getString("maxDeposit"))
+            editTextDoge3.setText(user.getString("maxDeposit"))
+          }
+
+          if (balanceSet < BigDecimal(22000)) {
+            editTextDoge.setText(balanceSet.toPlainString())
+          } else {
+            editTextDoge.setText(BigDecimal(22000).toPlainString())
+          }
+
+          maxDepositText2.text = "Max: " + user.getString("maxDeposit")
+          maxDepositText3.text = "Max: " + user.getString("maxDeposit")
+
+          loading.closeDialog()
         }
       }
     }
@@ -239,6 +354,90 @@ class BotMenuActivity : AppCompatActivity() {
       startActivity(goTo)
       finish()
       loading.closeDialog()
+    }
+  }
+
+  override fun onStart() {
+    super.onStart()
+    Timer().schedule(1000) {
+      intentServiceUserShow = Intent(applicationContext, BackgroundUserShow::class.java)
+      startService(intentServiceUserShow)
+
+      intentServiceGetBalance = Intent(applicationContext, BackgroundGetBalance::class.java)
+      startService(intentServiceGetBalance)
+
+      intentServiceGetPlucky = Intent(applicationContext, BackgroundGetPlucky::class.java)
+      startService(intentServiceGetPlucky)
+
+      LocalBroadcastManager.getInstance(applicationContext).registerReceiver(broadcastReceiverUserShow, IntentFilter("plucky.wallet.user.show"))
+
+      LocalBroadcastManager.getInstance(applicationContext).registerReceiver(broadcastReceiverGetBalance, IntentFilter("plucky.wallet.balance.index"))
+
+      LocalBroadcastManager.getInstance(applicationContext).registerReceiver(broadcastReceiverGetPlucky, IntentFilter("plucky.wallet.user.show.plucky"))
+    }
+  }
+
+  override fun onStop() {
+    LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiverUserShow)
+    LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiverGetBalance)
+
+    stopService(intentServiceUserShow)
+    stopService(intentServiceGetBalance)
+    super.onStop()
+  }
+
+  override fun onBackPressed() {
+    stopService(intentServiceUserShow)
+    stopService(intentServiceGetBalance)
+    super.onBackPressed()
+  }
+
+  private var broadcastReceiverUserShow: BroadcastReceiver = object : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+      lot.text = user.getInteger("lot").toString()
+      lotValue = user.getInteger("lot").toString().toBigDecimal()
+      val valueProgress = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotProgress")))
+      val valueTarget = bitCoinFormat.decimalToDoge(BigDecimal(user.getString("lotTarget")))
+      dollarValue = user.getString("dollar").toBigDecimal()
+      try {
+        progressBar.progress = ((valueProgress * BigDecimal(100.0)) / valueTarget).toInt()
+      } catch (e: Exception) {
+        progressBar.progress = 0
+      }
+      lotProgress.text = valueProgress.toPlainString()
+      lotTarget.text = valueTarget.toPlainString()
+    }
+  }
+  private var broadcastReceiverGetBalance: BroadcastReceiver = object : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+      balance.text = user.getString("balanceText")
+      balanceValue = user.getString("balanceValue").toBigDecimal()
+      val countDollar = bitCoinFormat.decimalToDoge(balanceValue) * dollarValue
+      dollar.text = bitCoinFormat.toDollar(countDollar).toPlainString()
+    }
+  }
+  private var broadcastReceiverGetPlucky: BroadcastReceiver = object : BroadcastReceiver() {
+    @SuppressLint("SetTextI18n")
+    override fun onReceive(context: Context, intent: Intent) {
+      plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
+      greade.text = user.getString("grade")
+      val balanceSet = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal())
+      if (balanceSet < user.getString("maxDeposit").toBigDecimal()) {
+        editTextDoge2.setText(balanceSet.toPlainString())
+        editTextDoge3.setText(balanceSet.toPlainString())
+      } else {
+        editTextDoge2.setText(user.getString("maxDeposit"))
+        editTextDoge3.setText(user.getString("maxDeposit"))
+      }
+
+      if (balanceSet < BigDecimal(22000)) {
+        editTextDoge.setText(balanceSet.toPlainString())
+      } else {
+        editTextDoge.setText(BigDecimal(22000).toPlainString())
+      }
+
+      maxDepositText2.text = "Max: " + user.getString("maxDeposit")
+      maxDepositText3.text = "Max: " + user.getString("maxDeposit")
     }
   }
 

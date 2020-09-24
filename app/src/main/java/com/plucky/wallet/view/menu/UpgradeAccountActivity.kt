@@ -213,7 +213,7 @@ class UpgradeAccountActivity : AppCompatActivity() {
           response = WebController.Post("lot.store", user.getString("token"), body).execute().get()
           if (response.getInt("code") == 200) {
             runOnUiThread {
-              user.setInteger("onQueue", 100)
+              user.setBoolean("onQueue", true)
               Toast.makeText(applicationContext, response.getJSONObject("data").getString("message"), Toast.LENGTH_SHORT).show()
               loading.closeDialog()
               goTo = Intent(applicationContext, MainActivity::class.java)

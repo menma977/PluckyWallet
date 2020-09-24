@@ -26,6 +26,10 @@ class BitCoinFormat {
   }
 
   fun toPlucky(value: BigDecimal): BigDecimal {
-    return value.setScale(4, BigDecimal.ROUND_HALF_DOWN)
+    return value.setScale(2, BigDecimal.ROUND_HALF_DOWN)
+  }
+
+  fun toGrade(value: BigDecimal): BigDecimal {
+    return value.setScale(1, BigDecimal.ROUND_HALF_DOWN)
   }
 }

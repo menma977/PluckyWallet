@@ -36,7 +36,8 @@ class BackgroundGetPlucky : IntentService("BackgroundGetPlucky") {
             try {
               if (response.getInt("code") == 200) {
                 user.setString("plucky", response.getJSONObject("data").getString("totalplucky"))
-                user.setString("grade", response.getJSONObject("data").getString("grade"))
+                user.setString("grade", BitCoinFormat().toGrade(response.getJSONObject("data").getString("grade").toBigDecimal()).toPlainString())
+                user.setString("maxDeposit", response.getJSONObject("data").getString("maxdepo"))
                 privateIntent.action = "plucky.wallet.user.show.plucky"
                 LocalBroadcastManager.getInstance(this).sendBroadcast(privateIntent)
               } else {
