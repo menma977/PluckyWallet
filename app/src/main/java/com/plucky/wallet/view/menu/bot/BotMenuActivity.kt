@@ -124,7 +124,7 @@ class BotMenuActivity : AppCompatActivity() {
         editTextDoge.text.toString().toBigDecimal() > balanceSet -> {
           Toast.makeText(this, "Max doge is $balanceSet", Toast.LENGTH_SHORT).show()
         }
-        editTextDoge.text.toString().toBigDecimal() < BigDecimal(22000) -> {
+        editTextDoge.text.toString().toBigDecimal() > BigDecimal(22000) -> {
           Toast.makeText(this, "Max doge is 22000", Toast.LENGTH_SHORT).show()
         }
         else -> {
@@ -147,8 +147,8 @@ class BotMenuActivity : AppCompatActivity() {
         editTextDoge2.text.toString().toBigDecimal() > balanceSet -> {
           Toast.makeText(this, "Max doge is $balanceSet", Toast.LENGTH_SHORT).show()
         }
-        editTextDoge2.text.toString().toBigDecimal() < user.getString("maxDeposit").toBigDecimal() -> {
-          Toast.makeText(this, "Max doge is ${user.getString("maxDeposit").toBigDecimal()}", Toast.LENGTH_SHORT).show()
+        editTextDoge2.text.toString().toBigDecimal() > user.getString("maxDeposit").replace(",", ".").toBigDecimal() -> {
+          Toast.makeText(this, "Max doge is ${user.getString("maxDeposit").replace(",", ".").toBigDecimal()}", Toast.LENGTH_SHORT).show()
         }
         else -> {
           currentBalance = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
@@ -171,8 +171,8 @@ class BotMenuActivity : AppCompatActivity() {
         editTextDoge3.text.toString().toBigDecimal() > balanceSet -> {
           Toast.makeText(this, "Max doge is $balanceSet", Toast.LENGTH_SHORT).show()
         }
-        editTextDoge3.text.toString().toBigDecimal() < user.getString("maxDeposit").toBigDecimal() -> {
-          Toast.makeText(this, "Max doge is ${user.getString("maxDeposit").toBigDecimal()}", Toast.LENGTH_SHORT).show()
+        editTextDoge3.text.toString().toBigDecimal() > user.getString("maxDeposit").replace(",", ".").toBigDecimal() -> {
+          Toast.makeText(this, "Max doge is ${user.getString("maxDeposit").replace(",", ".").toBigDecimal()}", Toast.LENGTH_SHORT).show()
         }
         else -> {
           currentBalance = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
@@ -411,7 +411,6 @@ class BotMenuActivity : AppCompatActivity() {
   private var broadcastReceiverGetBalance: BroadcastReceiver = object : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
       balance.text = user.getString("balanceText")
-      balanceValue = user.getString("balanceValue").toBigDecimal()
       val countDollar = bitCoinFormat.decimalToDoge(balanceValue) * dollarValue
       dollar.text = bitCoinFormat.toDollar(countDollar).toPlainString()
     }
@@ -421,20 +420,6 @@ class BotMenuActivity : AppCompatActivity() {
     override fun onReceive(context: Context, intent: Intent) {
       plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
       greade.text = user.getString("grade")
-      val balanceSet = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal())
-      if (balanceSet < user.getString("maxDeposit").toBigDecimal()) {
-        editTextDoge2.setText(balanceSet.toPlainString())
-        editTextDoge3.setText(balanceSet.toPlainString())
-      } else {
-        editTextDoge2.setText(user.getString("maxDeposit"))
-        editTextDoge3.setText(user.getString("maxDeposit"))
-      }
-
-      if (balanceSet < BigDecimal(22000)) {
-        editTextDoge.setText(balanceSet.toPlainString())
-      } else {
-        editTextDoge.setText(BigDecimal(22000).toPlainString())
-      }
 
       maxDepositText2.text = "Max: " + user.getString("maxDeposit")
       maxDepositText3.text = "Max: " + user.getString("maxDeposit")
