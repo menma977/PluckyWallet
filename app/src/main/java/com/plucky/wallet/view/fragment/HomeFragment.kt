@@ -140,7 +140,7 @@ class HomeFragment : Fragment() {
   }
 
   private fun onQueue() {
-    if (user.getBoolean("onQueue")) {
+    if (user.getBoolean("onQueue") || user.getBoolean("pending")) {
       automaticStakeButton.isEnabled = false
       manualStakeButton.isEnabled = false
     } else {

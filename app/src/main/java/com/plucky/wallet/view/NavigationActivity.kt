@@ -95,7 +95,7 @@ class NavigationActivity : AppCompatActivity() {
   }
 
   private fun onQueue() {
-    if (user.getBoolean("onQueue")) {
+    if (user.getBoolean("onQueue") || user.getBoolean("pending")) {
       sendDoge.isEnabled = false
       upgradeButton.isEnabled = false
     } else {
@@ -223,6 +223,7 @@ class NavigationActivity : AppCompatActivity() {
         user.setString("plucky", response.getJSONObject("data").getString("totalplucky"))
         user.setString("grade", BitCoinFormat().toGrade(response.getJSONObject("data").getString("grade").toBigDecimal()).toPlainString())
         user.setString("maxDeposit", response.getJSONObject("data").getString("maxdepo"))
+        user.setBoolean("pending", response.getJSONObject("data").getBoolean("pending"))
 
         runOnUiThread {
           loading.closeDialog()

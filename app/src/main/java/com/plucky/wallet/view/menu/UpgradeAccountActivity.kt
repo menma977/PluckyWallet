@@ -104,6 +104,10 @@ class UpgradeAccountActivity : AppCompatActivity() {
     }
 
     upgradeSet(0)
+
+    if (user.getBoolean("isLogout")) {
+      onLogout()
+    }
   }
 
   private fun upgradeSet(type: Int) {
@@ -255,15 +259,18 @@ class UpgradeAccountActivity : AppCompatActivity() {
   override fun onStop() {
     LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiverUserShow)
     LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiverGetBalance)
+    LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiverGetPlucky)
 
     stopService(intentServiceUserShow)
     stopService(intentServiceGetBalance)
+    stopService(intentServiceGetPlucky)
     super.onStop()
   }
 
   override fun onBackPressed() {
     stopService(intentServiceUserShow)
     stopService(intentServiceGetBalance)
+    stopService(intentServiceGetPlucky)
     super.onBackPressed()
   }
 
@@ -281,6 +288,10 @@ class UpgradeAccountActivity : AppCompatActivity() {
       }
       lotProgress.text = valueProgress.toPlainString()
       lotTarget.text = valueTarget.toPlainString()
+
+      if (user.getBoolean("isLogout")) {
+        onLogout()
+      }
     }
   }
   private var broadcastReceiverGetBalance: BroadcastReceiver = object : BroadcastReceiver() {
@@ -295,6 +306,37 @@ class UpgradeAccountActivity : AppCompatActivity() {
     override fun onReceive(context: Context, intent: Intent) {
       plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
       greade.text = user.getString("grade")
+    }
+  }
+
+  fun onLogout() {
+    LocalBroadcastManager.getInstance(applicationContext).unregisterReceiver(broadcastReceiverUserShow)
+    LocalBroadcastManager.getInstance(applicationContext).unregisterReceiver(broadcastReceiverGetBalance)
+    LocalBroadcastManager.getInstance(applicationContext).unregisterReceiver(broadcastReceiverGetPlucky)
+
+    stopService(intentServiceUserShow)
+    stopService(intentServiceGetBalance)
+    stopService(intentServiceGetPlucky)
+    Timer().schedule(100) {
+      response = WebController.Get("logout", user.getString("token")).execute().get()
+      runOnUiThread {
+        if (response.getInt("code") == 200) {
+          loading.closeDialog()
+          user.clear()
+          setting.clear()
+          goTo = Intent(applicationContext, MainActivity::class.java)
+          loading.closeDialog()
+          startActivity(goTo)
+          finishAffinity()
+        } else {
+          user.clear()
+          setting.clear()
+          goTo = Intent(applicationContext, MainActivity::class.java)
+          loading.closeDialog()
+          startActivity(goTo)
+          finishAffinity()
+        }
+      }
     }
   }
 }

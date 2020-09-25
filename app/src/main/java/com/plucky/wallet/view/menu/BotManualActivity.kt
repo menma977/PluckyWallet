@@ -156,6 +156,10 @@ class BotManualActivity : AppCompatActivity() {
     })
 
     setDefaultView()
+
+    if (user.getBoolean("isLogout")) {
+      onLogout()
+    }
   }
 
   private fun onBetting() {
@@ -208,7 +212,6 @@ class BotManualActivity : AppCompatActivity() {
 
             maxBalance = bitCoinFormat.dogeToDecimal(bitCoinFormat.decimalToDoge(payIn.multiply(percent.toBigDecimal())).multiply(payInMultiple))
             fundText.text = "Maximum : ${bitCoinFormat.decimalToDoge(maxBalance).toPlainString()}"
-            println(payInMultiple)
             inputBalance.isEnabled = true
           }
 
@@ -276,29 +279,6 @@ class BotManualActivity : AppCompatActivity() {
     percentTable.add(9.0)
   }
 
-  private fun onLogout() {
-    Timer().schedule(100) {
-      response = WebController.Get("user.logout", user.getString("token")).execute().get()
-      if (response.getInt("code") == 200) {
-        user.clear()
-        setting.clear()
-        goTo = Intent(applicationContext, MainActivity::class.java)
-        loading.closeDialog()
-        startActivity(goTo)
-        finishAffinity()
-      } else {
-        if (response.getString("data").contains("Unauthenticated.")) {
-          user.clear()
-          setting.clear()
-          goTo = Intent(applicationContext, MainActivity::class.java)
-          loading.closeDialog()
-          startActivity(goTo)
-          finishAffinity()
-        }
-      }
-    }
-  }
-
   override fun onStart() {
     super.onStart()
     loading.openDialog()
@@ -324,21 +304,24 @@ class BotManualActivity : AppCompatActivity() {
   override fun onStop() {
     LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiverUserShow)
     LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiverGetBalance)
+    LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiverGetPlucky)
 
     stopService(intentServiceUserShow)
     stopService(intentServiceGetBalance)
+    stopService(intentServiceGetPlucky)
     super.onStop()
   }
 
   override fun onBackPressed() {
     stopService(intentServiceUserShow)
     stopService(intentServiceGetBalance)
+    stopService(intentServiceGetPlucky)
     super.onBackPressed()
   }
 
   private var broadcastReceiverUserShow: BroadcastReceiver = object : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
-      if (intent.getBooleanExtra("isLogout", false)) {
+      if (intent.getBooleanExtra("isLogout", false) || user.getBoolean("isLogout")) {
         onLogout()
       } else {
         lot.text = user.getInteger("lot").toString()
@@ -367,6 +350,34 @@ class BotManualActivity : AppCompatActivity() {
     override fun onReceive(context: Context, intent: Intent) {
       plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
       greade.text = user.getString("grade")
+    }
+  }
+
+  private fun onLogout() {
+    LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiverUserShow)
+    LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiverGetBalance)
+    LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiverGetPlucky)
+
+    stopService(intentServiceUserShow)
+    stopService(intentServiceGetBalance)
+    stopService(intentServiceGetPlucky)
+    Timer().schedule(100) {
+      response = WebController.Get("logout", user.getString("token")).execute().get()
+      if (response.getInt("code") == 200) {
+        user.clear()
+        setting.clear()
+        goTo = Intent(applicationContext, MainActivity::class.java)
+        loading.closeDialog()
+        startActivity(goTo)
+        finishAffinity()
+      } else {
+        user.clear()
+        setting.clear()
+        goTo = Intent(applicationContext, MainActivity::class.java)
+        loading.closeDialog()
+        startActivity(goTo)
+        finishAffinity()
+      }
     }
   }
 }

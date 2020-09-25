@@ -9,8 +9,10 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.plucky.wallet.MainActivity
 import com.plucky.wallet.R
 import com.plucky.wallet.config.*
+import com.plucky.wallet.controller.WebController
 import com.plucky.wallet.controller.WebOldController
 import com.plucky.wallet.model.Setting
 import com.plucky.wallet.model.User
@@ -200,6 +202,7 @@ class BotMenuActivity : AppCompatActivity() {
         user.setString("plucky", response.getJSONObject("data").getString("totalplucky"))
         user.setString("grade", BitCoinFormat().toGrade(response.getJSONObject("data").getString("grade").toBigDecimal()).toPlainString())
         user.setString("maxDeposit", response.getJSONObject("data").getString("maxdepo"))
+        user.setBoolean("pending", response.getJSONObject("data").getBoolean("pending"))
 
         runOnUiThread {
           val balanceSet = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal())
@@ -221,6 +224,10 @@ class BotMenuActivity : AppCompatActivity() {
           maxDepositText3.text = "Max: " + user.getString("maxDeposit")
 
           loading.closeDialog()
+
+          if (user.getBoolean("isLogout")) {
+            onLogout()
+          }
         }
       }
     }
@@ -380,15 +387,18 @@ class BotMenuActivity : AppCompatActivity() {
   override fun onStop() {
     LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiverUserShow)
     LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiverGetBalance)
+    LocalBroadcastManager.getInstance(this).unregisterReceiver(broadcastReceiverGetPlucky)
 
     stopService(intentServiceUserShow)
     stopService(intentServiceGetBalance)
+    stopService(intentServiceGetPlucky)
     super.onStop()
   }
 
   override fun onBackPressed() {
     stopService(intentServiceUserShow)
     stopService(intentServiceGetBalance)
+    stopService(intentServiceGetPlucky)
     super.onBackPressed()
   }
 
@@ -413,6 +423,10 @@ class BotMenuActivity : AppCompatActivity() {
       balance.text = user.getString("balanceText")
       val countDollar = bitCoinFormat.decimalToDoge(balanceValue) * dollarValue
       dollar.text = bitCoinFormat.toDollar(countDollar).toPlainString()
+
+      if (user.getBoolean("isLogout")) {
+        onLogout()
+      }
     }
   }
   private var broadcastReceiverGetPlucky: BroadcastReceiver = object : BroadcastReceiver() {
@@ -443,5 +457,36 @@ class BotMenuActivity : AppCompatActivity() {
       //e.printStackTrace()
     }
     return ""
+  }
+
+  fun onLogout() {
+    LocalBroadcastManager.getInstance(applicationContext).unregisterReceiver(broadcastReceiverUserShow)
+    LocalBroadcastManager.getInstance(applicationContext).unregisterReceiver(broadcastReceiverGetBalance)
+    LocalBroadcastManager.getInstance(applicationContext).unregisterReceiver(broadcastReceiverGetPlucky)
+
+    stopService(intentServiceUserShow)
+    stopService(intentServiceGetBalance)
+    stopService(intentServiceGetPlucky)
+    Timer().schedule(100) {
+      response = WebController.Get("logout", user.getString("token")).execute().get()
+      runOnUiThread {
+        if (response.getInt("code") == 200) {
+          loading.closeDialog()
+          user.clear()
+          setting.clear()
+          goTo = Intent(applicationContext, MainActivity::class.java)
+          loading.closeDialog()
+          startActivity(goTo)
+          finishAffinity()
+        } else {
+          user.clear()
+          setting.clear()
+          goTo = Intent(applicationContext, MainActivity::class.java)
+          loading.closeDialog()
+          startActivity(goTo)
+          finishAffinity()
+        }
+      }
+    }
   }
 }

@@ -36,11 +36,14 @@ class BackgroundUserShow : IntentService("BackgroundUserShow") {
                 user.setBoolean("suspend", response.getJSONObject("data").getJSONObject("user").getInt("suspend") == 1)
                 user.setBoolean("isWin", response.getJSONObject("data").getBoolean("isWin"))
 
+                user.setBoolean("isLogout", false)
                 privateIntent.putExtra("isLogout", false)
               } else {
                 if (response.getString("data").contains("Unauthenticated.")) {
+                  user.setBoolean("isLogout", true)
                   privateIntent.putExtra("isLogout", true)
                 } else {
+                  user.setBoolean("isLogout", false)
                   privateIntent.putExtra("isLogout", false)
                   Thread.sleep(5000)
                 }
