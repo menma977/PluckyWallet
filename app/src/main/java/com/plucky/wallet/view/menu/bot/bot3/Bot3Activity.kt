@@ -41,7 +41,7 @@ class Bot3Activity : AppCompatActivity() {
   private var rowChart = 1
   private var loseBot = false
   private var balanceLimitTarget = BigDecimal(0.06)
-  private var balanceLimitTargetLow = BigDecimal(0)
+  private var balanceLimitTargetLow = BigDecimal(0.5)
   private var formula = 1
   private var seed = (0..99999).random().toString()
   private var thread = Thread()
