@@ -416,6 +416,10 @@ class BotMenuActivity : AppCompatActivity() {
       }
       lotProgress.text = valueProgress.toPlainString()
       lotTarget.text = valueTarget.toPlainString()
+
+      if (user.getBoolean("isLogout")) {
+        onLogout()
+      }
     }
   }
   private var broadcastReceiverGetBalance: BroadcastReceiver = object : BroadcastReceiver() {
@@ -423,10 +427,6 @@ class BotMenuActivity : AppCompatActivity() {
       balance.text = user.getString("balanceText")
       val countDollar = bitCoinFormat.decimalToDoge(balanceValue) * dollarValue
       dollar.text = bitCoinFormat.toDollar(countDollar).toPlainString()
-
-      if (user.getBoolean("isLogout")) {
-        onLogout()
-      }
     }
   }
   private var broadcastReceiverGetPlucky: BroadcastReceiver = object : BroadcastReceiver() {
