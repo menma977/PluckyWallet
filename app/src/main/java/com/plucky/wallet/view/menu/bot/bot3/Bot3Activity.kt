@@ -6,10 +6,13 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.plucky.wallet.MainActivity
 import com.plucky.wallet.R
+import com.plucky.wallet.config.BackgroundUserShow
 import com.plucky.wallet.config.BitCoinFormat
 import com.plucky.wallet.config.Loading
 import com.plucky.wallet.controller.DogeController
+import com.plucky.wallet.controller.WebController
 import com.plucky.wallet.model.User
 import com.plucky.wallet.view.menu.bot.ResultActivity
 import org.eazegraph.lib.charts.ValueLineChart
@@ -18,6 +21,7 @@ import org.eazegraph.lib.models.ValueLineSeries
 import org.json.JSONObject
 import java.math.BigDecimal
 import java.util.*
+import kotlin.concurrent.schedule
 
 class Bot3Activity : AppCompatActivity() {
   private lateinit var cubicLineChart: ValueLineChart
@@ -38,6 +42,7 @@ class Bot3Activity : AppCompatActivity() {
   private lateinit var balanceView: TextView
   private lateinit var balanceRemainingView: TextView
   private lateinit var uniqueCode: String
+  private lateinit var intentServiceUserShow: Intent
   private var rowChart = 1
   private var loseBot = false
   private var balanceLimitTarget = BigDecimal(0.06)
@@ -87,8 +92,44 @@ class Bot3Activity : AppCompatActivity() {
     thread.start()
   }
 
+  override fun onStart() {
+    super.onStart()
+    Timer().schedule(1000) {
+      intentServiceUserShow = Intent(applicationContext, BackgroundUserShow::class.java)
+      startService(intentServiceUserShow)
+    }
+  }
+
   override fun onBackPressed() {
     Toast.makeText(this, "Cannot Return When playing a bot", Toast.LENGTH_LONG).show()
+  }
+
+  override fun onStop() {
+    super.onStop()
+    stopService(intentServiceUserShow)
+  }
+
+  private fun onLogout() {
+    stopService(intentServiceUserShow)
+    Timer().schedule(100) {
+      response = WebController.Get("logout", user.getString("token")).execute().get()
+      runOnUiThread {
+        if (response.getInt("code") == 200) {
+          loading.closeDialog()
+          user.clear()
+          goTo = Intent(applicationContext, MainActivity::class.java)
+          loading.closeDialog()
+          startActivity(goTo)
+          finishAffinity()
+        } else {
+          user.clear()
+          goTo = Intent(applicationContext, MainActivity::class.java)
+          loading.closeDialog()
+          startActivity(goTo)
+          finishAffinity()
+        }
+      }
+    }
   }
 
   private fun configChart() {
@@ -114,6 +155,10 @@ class Bot3Activity : AppCompatActivity() {
       while (balanceRemaining in balanceLimitTargetLow..balanceTarget) {
         val delta = System.currentTimeMillis() - time
         if (delta >= 1000) {
+          if (user.getBoolean("isLogout")) {
+            break
+          }
+
           time = System.currentTimeMillis()
           payIn *= formula.toBigDecimal()
           val body = HashMap<String, String>()
@@ -178,8 +223,12 @@ class Bot3Activity : AppCompatActivity() {
       goTo.putExtra("balanceRemaining", balanceRemaining)
       goTo.putExtra("uniqueCode", intent.getSerializableExtra("uniqueCode") as String)
       runOnUiThread {
-        startActivity(goTo)
-        finish()
+        if (user.getBoolean("isLogout")) {
+          onLogout()
+        } else {
+          startActivity(goTo)
+          finish()
+        }
       }
     }
   }
