@@ -1,5 +1,6 @@
 package com.plucky.wallet.view.menu
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -11,10 +12,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.zxing.Result
 import com.plucky.wallet.MainActivity
 import com.plucky.wallet.R
-import com.plucky.wallet.config.BackgroundGetBalance
-import com.plucky.wallet.config.BackgroundUserShow
-import com.plucky.wallet.config.BitCoinFormat
-import com.plucky.wallet.config.Loading
+import com.plucky.wallet.config.*
 import com.plucky.wallet.controller.WebController
 import com.plucky.wallet.model.Setting
 import com.plucky.wallet.model.User
@@ -41,6 +39,7 @@ class SendBalanceActivity : AppCompatActivity(), ZXingScannerView.ResultHandler 
   private lateinit var secondaryPasswordText: EditText
   private lateinit var intentServiceGetBalance: Intent
   private lateinit var intentServiceUserShow: Intent
+  private lateinit var intentServiceGetPlucky: Intent
   private lateinit var balanceValue: BigDecimal
   private var isHasCode = false
   private var isStart = true
@@ -124,9 +123,15 @@ class SendBalanceActivity : AppCompatActivity(), ZXingScannerView.ResultHandler 
       intentServiceGetBalance = Intent(applicationContext, BackgroundGetBalance::class.java)
       startService(intentServiceGetBalance)
 
+      intentServiceGetPlucky = Intent(applicationContext, BackgroundGetPlucky::class.java)
+      startService(intentServiceGetPlucky)
+
       LocalBroadcastManager.getInstance(applicationContext).registerReceiver(broadcastReceiverUserShow, IntentFilter("plucky.wallet.user.show"))
 
       LocalBroadcastManager.getInstance(applicationContext).registerReceiver(broadcastReceiverGetBalance, IntentFilter("plucky.wallet.balance.index"))
+
+      LocalBroadcastManager.getInstance(applicationContext).registerReceiver(broadcastReceiverGetPlucky, IntentFilter("plucky.wallet.user.show.plucky"))
+
       loading.closeDialog()
     }
   }
@@ -149,13 +154,27 @@ class SendBalanceActivity : AppCompatActivity(), ZXingScannerView.ResultHandler 
     stopService(intentServiceUserShow)
     LocalBroadcastManager.getInstance(applicationContext).unregisterReceiver(broadcastReceiverGetBalance)
     stopService(intentServiceGetBalance)
+    LocalBroadcastManager.getInstance(applicationContext).unregisterReceiver(broadcastReceiverGetPlucky)
+    stopService(intentServiceGetPlucky)
     super.onStop()
   }
 
   override fun onBackPressed() {
     stopService(intentServiceUserShow)
     stopService(intentServiceGetBalance)
+    stopService(intentServiceGetPlucky)
     super.onBackPressed()
+  }
+
+  private var broadcastReceiverGetPlucky: BroadcastReceiver = object : BroadcastReceiver() {
+    @SuppressLint("SetTextI18n")
+    override fun onReceive(context: Context, intent: Intent) {
+      if (user.getBoolean("pending")) {
+        goTo = Intent(applicationContext, MainActivity::class.java)
+        startActivity(goTo)
+        finishAffinity()
+      }
+    }
   }
 
   override fun handleResult(rawResult: Result?) {
