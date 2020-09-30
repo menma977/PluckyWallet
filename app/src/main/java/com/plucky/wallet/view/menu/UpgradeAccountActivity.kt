@@ -306,6 +306,11 @@ class UpgradeAccountActivity : AppCompatActivity() {
     override fun onReceive(context: Context, intent: Intent) {
       plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
       greade.text = user.getString("grade")
+      if (user.getBoolean("pending")) {
+        goTo = Intent(applicationContext, MainActivity::class.java)
+        startActivity(goTo)
+        finishAffinity()
+      }
     }
   }
 
