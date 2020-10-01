@@ -1,11 +1,15 @@
 package com.plucky.wallet.view.menu.bot.bot2
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.plucky.wallet.MainActivity
 import com.plucky.wallet.R
 import com.plucky.wallet.config.BackgroundUserShow
@@ -97,6 +101,8 @@ class Bot2Activity : AppCompatActivity() {
     Timer().schedule(1000) {
       intentServiceUserShow = Intent(applicationContext, BackgroundUserShow::class.java)
       startService(intentServiceUserShow)
+
+      LocalBroadcastManager.getInstance(applicationContext).registerReceiver(broadcastReceiverUserShow, IntentFilter("plucky.wallet.user.show"))
     }
   }
 
@@ -107,6 +113,12 @@ class Bot2Activity : AppCompatActivity() {
   override fun onStop() {
     super.onStop()
     stopService(intentServiceUserShow)
+  }
+
+  private var broadcastReceiverUserShow: BroadcastReceiver = object : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+      user.setBoolean("isLogout", intent.getBooleanExtra("isLogout", false))
+    }
   }
 
   private fun onLogout() {
