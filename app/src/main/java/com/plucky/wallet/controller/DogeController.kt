@@ -70,7 +70,7 @@ class DogeController(private var body: HashMap<String, String>) : AsyncTask<Void
         }
       }
     } catch (e: Exception) {
-      JSONObject().put("code", 500).put("data", e.message)
+      JSONObject().put("code", 500).put("data", e.message.toString().replace("www.999doge.com", "doge"))
     }
   }
 }
