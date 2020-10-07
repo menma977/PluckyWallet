@@ -126,9 +126,6 @@ class BotMenuActivity : AppCompatActivity() {
         editTextDoge.text.toString().toBigDecimal() > balanceSet -> {
           Toast.makeText(this, "Max doge is $balanceSet", Toast.LENGTH_SHORT).show()
         }
-        editTextDoge.text.toString().toBigDecimal() > BigDecimal(22000) -> {
-          Toast.makeText(this, "Max doge is 22000", Toast.LENGTH_SHORT).show()
-        }
         else -> {
           currentBalance = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
           beatingBalance = BitCoinFormat().decimalToDoge(BitCoinFormat().dogeToDecimal(editTextDoge.text.toString().toBigDecimal())).toPlainString()

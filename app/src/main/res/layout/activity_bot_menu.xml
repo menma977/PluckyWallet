@@ -229,6 +229,7 @@
             android:gravity="center"/>
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/maxDeposit"
             android:text="@string/maximum_21000"
             android:layout_width="0dp"
