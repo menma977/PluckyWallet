@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
@@ -47,6 +48,8 @@ class Bot2Activity : AppCompatActivity() {
   private lateinit var balanceRemainingView: TextView
   private lateinit var uniqueCode: String
   private lateinit var intentServiceUserShow: Intent
+  private lateinit var buttonContinue: Button
+  private lateinit var buttonStop: Button
   private var rowChart = 1
   private var loseBot = false
   private var balanceLimitTarget = BigDecimal(0.06)
@@ -73,6 +76,12 @@ class Bot2Activity : AppCompatActivity() {
     progressBar = findViewById(R.id.progressBar)
     cubicLineChart = findViewById(R.id.cubicLineChart)
 
+    buttonContinue = findViewById(R.id.buttonContinue)
+    buttonStop = findViewById(R.id.buttonStop)
+
+    buttonContinue.visibility = Button.GONE
+    buttonStop.visibility = Button.GONE
+
     series = ValueLineSeries()
 
     loading.openDialog()
@@ -86,6 +95,51 @@ class Bot2Activity : AppCompatActivity() {
     usernameView.text = user.getString("username")
     balanceView.text = "${bitCoinFormat.decimalToDoge(balance).toPlainString()} DOGE"
     balanceRemainingView.text = bitCoinFormat.decimalToDoge(balanceRemaining).toPlainString()
+
+    buttonContinue.setOnClickListener {
+      buttonContinue.visibility = Button.GONE
+      buttonStop.visibility = Button.GONE
+      balance = balanceRemaining
+      balanceTarget = bitCoinFormat.dogeToDecimal(bitCoinFormat.decimalToDoge((balance * balanceLimitTarget) + balance))
+      payIn = bitCoinFormat.dogeToDecimal(bitCoinFormat.decimalToDoge(balance) * BigDecimal(0.001))
+      balanceLimitTargetLow = bitCoinFormat.dogeToDecimal(bitCoinFormat.decimalToDoge(balance) * BigDecimal(0.5))
+
+      balanceView.text = "${bitCoinFormat.decimalToDoge(balance).toPlainString()} DOGE"
+      balanceRemainingView.text = bitCoinFormat.decimalToDoge(balance).toPlainString()
+
+      println("===========new Thread====================")
+
+      println("balanceRemaining $balanceRemaining")
+      println("balanceLimitTargetLow $balanceLimitTargetLow")
+      println("balanceTarget $balanceTarget")
+
+      progress(balance, balanceRemaining, balanceTarget)
+      val newThread = Thread {
+        onBotMode()
+      }
+      newThread.start()
+    }
+
+    buttonStop.setOnClickListener {
+      goTo = Intent(applicationContext, ResultActivity::class.java)
+      if (balanceRemaining >= balanceTarget) {
+        goTo.putExtra("status", "WIN")
+      } else {
+        goTo.putExtra("status", "CUT LOSS")
+      }
+      goTo.putExtra("mode", mode)
+      goTo.putExtra("startBalance", balance)
+      goTo.putExtra("balanceRemaining", balanceRemaining)
+      goTo.putExtra("uniqueCode", intent.getSerializableExtra("uniqueCode") as String)
+      runOnUiThread {
+        if (user.getBoolean("isLogout")) {
+          onLogout()
+        } else {
+          startActivity(goTo)
+          finish()
+        }
+      }
+    }
 
     progress(balance, balanceRemaining, balanceTarget)
     configChart()
@@ -221,28 +275,32 @@ class Bot2Activity : AppCompatActivity() {
             runOnUiThread {
               balanceRemainingView.text = "sleep mode Active"
               Toast.makeText(applicationContext, "sleep mode Active Wait to continue", Toast.LENGTH_LONG).show()
+              trigger.wait(60000)
             }
-            trigger.wait(60000)
           }
         }
       }
 
+
       goTo = Intent(applicationContext, ResultActivity::class.java)
       if (balanceRemaining >= balanceTarget) {
-        goTo.putExtra("status", "WIN")
+        runOnUiThread {
+          buttonContinue.visibility = Button.VISIBLE
+          buttonStop.visibility = Button.VISIBLE
+        }
       } else {
         goTo.putExtra("status", "CUT LOSS")
-      }
-      goTo.putExtra("mode", mode)
-      goTo.putExtra("startBalance", balance)
-      goTo.putExtra("balanceRemaining", balanceRemaining)
-      goTo.putExtra("uniqueCode", intent.getSerializableExtra("uniqueCode") as String)
-      runOnUiThread {
-        if (user.getBoolean("isLogout")) {
-          onLogout()
-        } else {
-          startActivity(goTo)
-          finish()
+        goTo.putExtra("mode", mode)
+        goTo.putExtra("startBalance", balance)
+        goTo.putExtra("balanceRemaining", balanceRemaining)
+        goTo.putExtra("uniqueCode", intent.getSerializableExtra("uniqueCode") as String)
+        runOnUiThread {
+          if (user.getBoolean("isLogout")) {
+            onLogout()
+          } else {
+            startActivity(goTo)
+            finish()
+          }
         }
       }
     }

@@ -115,6 +115,7 @@ class BotMenuActivity : AppCompatActivity() {
     dollar.text = bitCoinFormat.toDollar(countDollar).toPlainString()
 
     buttonBot1.setOnClickListener {
+      val maxBot1 = bitCoinFormat.decimalToDoge(user.getString("maxBot1").toBigDecimal())
       val balanceSet = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal())
       when {
         editTextDoge.text.toString().isEmpty() -> {
@@ -125,6 +126,9 @@ class BotMenuActivity : AppCompatActivity() {
         }
         editTextDoge.text.toString().toBigDecimal() > balanceSet -> {
           Toast.makeText(this, "Max doge is $balanceSet", Toast.LENGTH_SHORT).show()
+        }
+        editTextDoge.text.toString().toBigDecimal() > maxBot1 -> {
+          Toast.makeText(this, "Max doge is $maxBot1", Toast.LENGTH_SHORT).show()
         }
         else -> {
           currentBalance = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
@@ -217,9 +221,9 @@ class BotMenuActivity : AppCompatActivity() {
             editTextDoge.setText(BigDecimal(22000).toPlainString())
           }
 
+          maxDepositText.text = "Max: " + bitCoinFormat.decimalToDoge(bitCoinFormat.dogeToDecimal(user.getString("maxBot1").toBigDecimal())).toPlainString()
           maxDepositText2.text = "Max: " + user.getString("maxDeposit")
           maxDepositText3.text = "Max: " + user.getString("maxDeposit")
-
           loading.closeDialog()
 
           if (user.getBoolean("isLogout")) {
@@ -432,6 +436,7 @@ class BotMenuActivity : AppCompatActivity() {
       plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
       greade.text = user.getString("grade")
 
+      maxDepositText.text = "Max: " + bitCoinFormat.decimalToDoge(bitCoinFormat.dogeToDecimal(user.getString("maxBot1").toBigDecimal())).toPlainString()
       maxDepositText2.text = "Max: " + user.getString("maxDeposit")
       maxDepositText3.text = "Max: " + user.getString("maxDeposit")
     }

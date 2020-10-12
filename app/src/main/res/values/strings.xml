@@ -52,4 +52,6 @@
   <string name="start_bot_1">Start Bot 1</string>
   <string name="minimum_3000">Min: 3000</string>
   <string name="maximum_21000">Max: 22000</string>
+  <string name="stop">Stop</string>
+  <string name="continue_text">Continue</string>
 </resources>
