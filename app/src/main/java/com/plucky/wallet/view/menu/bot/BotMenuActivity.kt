@@ -115,7 +115,7 @@ class BotMenuActivity : AppCompatActivity() {
     dollar.text = bitCoinFormat.toDollar(countDollar).toPlainString()
 
     buttonBot1.setOnClickListener {
-      val maxBot1 = bitCoinFormat.decimalToDoge(user.getString("maxBot1").toBigDecimal())
+      val maxBot1 = bitCoinFormat.decimalToDoge(bitCoinFormat.dogeToDecimal(user.getString("maxBot1").toBigDecimal()))
       val balanceSet = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal())
       when {
         editTextDoge.text.toString().isEmpty() -> {
