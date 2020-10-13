@@ -58,6 +58,7 @@ class Bot2Activity : AppCompatActivity() {
   private var seed = (0..99999).random().toString()
   private var thread = Thread()
   private var mode = 0
+  private var stopBot = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -80,7 +81,6 @@ class Bot2Activity : AppCompatActivity() {
     buttonStop = findViewById(R.id.buttonStop)
 
     buttonContinue.visibility = Button.GONE
-    buttonStop.visibility = Button.GONE
 
     series = ValueLineSeries()
 
@@ -98,7 +98,6 @@ class Bot2Activity : AppCompatActivity() {
 
     buttonContinue.setOnClickListener {
       buttonContinue.visibility = Button.GONE
-      buttonStop.visibility = Button.GONE
       balance = balanceRemaining
       balanceTarget = bitCoinFormat.dogeToDecimal(bitCoinFormat.decimalToDoge((balance * balanceLimitTarget) + balance))
       payIn = bitCoinFormat.dogeToDecimal(bitCoinFormat.decimalToDoge(balance) * BigDecimal(0.001))
@@ -121,6 +120,7 @@ class Bot2Activity : AppCompatActivity() {
     }
 
     buttonStop.setOnClickListener {
+      stopBot = true
       goTo = Intent(applicationContext, ResultActivity::class.java)
       if (balanceRemaining >= balanceTarget) {
         goTo.putExtra("status", "WIN")
@@ -221,6 +221,10 @@ class Bot2Activity : AppCompatActivity() {
       while (balanceRemaining in balanceLimitTargetLow..balanceTarget) {
         val delta = System.currentTimeMillis() - time
         if (delta >= 1000) {
+          if (stopBot) {
+            break
+          }
+
           if (user.getBoolean("isLogout")) {
             break
           }
@@ -286,7 +290,6 @@ class Bot2Activity : AppCompatActivity() {
       if (balanceRemaining >= balanceTarget) {
         runOnUiThread {
           buttonContinue.visibility = Button.VISIBLE
-          buttonStop.visibility = Button.VISIBLE
         }
       } else {
         goTo.putExtra("status", "CUT LOSS")
