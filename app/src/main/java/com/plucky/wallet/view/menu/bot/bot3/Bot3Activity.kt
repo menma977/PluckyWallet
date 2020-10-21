@@ -38,6 +38,7 @@ class Bot3Activity : AppCompatActivity() {
   private lateinit var response: JSONObject
   private lateinit var bitCoinFormat: BitCoinFormat
   private lateinit var balance: BigDecimal
+  private lateinit var balanceLimit: BigDecimal
   private lateinit var balanceTarget: BigDecimal
   private lateinit var balanceRemaining: BigDecimal
   private lateinit var payIn: BigDecimal
@@ -86,6 +87,7 @@ class Bot3Activity : AppCompatActivity() {
 
     loading.openDialog()
     balance = intent.getSerializableExtra("balance") as BigDecimal
+    balanceLimit = balance + (intent.getSerializableExtra("resultBot1") as BigDecimal * user.getInteger("limitPlay").toBigDecimal())
     balanceLimitTarget = intent.getSerializableExtra("target") as BigDecimal
     balanceRemaining = balance
     balanceTarget = bitCoinFormat.dogeToDecimal(bitCoinFormat.decimalToDoge((balance * balanceLimitTarget) + balance))
@@ -97,20 +99,25 @@ class Bot3Activity : AppCompatActivity() {
     balanceRemainingView.text = bitCoinFormat.decimalToDoge(balanceRemaining).toPlainString()
 
     buttonContinue.setOnClickListener {
-      buttonContinue.visibility = Button.GONE
-      balance = balanceRemaining
-      balanceTarget = bitCoinFormat.dogeToDecimal(bitCoinFormat.decimalToDoge((balance * balanceLimitTarget) + balance))
-      payIn = bitCoinFormat.dogeToDecimal(bitCoinFormat.decimalToDoge(balance) * BigDecimal(0.001))
-      balanceLimitTargetLow = bitCoinFormat.dogeToDecimal(bitCoinFormat.decimalToDoge(balance) * BigDecimal(0.5))
+      if (balanceRemaining >= balanceLimit && balanceRemaining != BigDecimal(0)) {
+        buttonContinue.visibility = Button.GONE
+        Toast.makeText(this, "Your are on limit from ${user.getInteger("limitPlay")}X WIN BOT 1", Toast.LENGTH_SHORT).show()
+      } else {
+        buttonContinue.visibility = Button.GONE
+        balance = balanceRemaining
+        balanceTarget = bitCoinFormat.dogeToDecimal(bitCoinFormat.decimalToDoge((balance * balanceLimitTarget) + balance))
+        payIn = bitCoinFormat.dogeToDecimal(bitCoinFormat.decimalToDoge(balance) * BigDecimal(0.001))
+        balanceLimitTargetLow = bitCoinFormat.dogeToDecimal(bitCoinFormat.decimalToDoge(balance) * BigDecimal(0.5))
 
-      balanceView.text = "${bitCoinFormat.decimalToDoge(balance).toPlainString()} DOGE"
-      balanceRemainingView.text = bitCoinFormat.decimalToDoge(balance).toPlainString()
+        balanceView.text = "${bitCoinFormat.decimalToDoge(balance).toPlainString()} DOGE"
+        balanceRemainingView.text = bitCoinFormat.decimalToDoge(balance).toPlainString()
 
-      progress(balance, balanceRemaining, balanceTarget)
-      val newThread = Thread {
-        onBotMode()
+        progress(balance, balanceRemaining, balanceTarget)
+        val newThread = Thread {
+          onBotMode()
+        }
+        newThread.start()
       }
-      newThread.start()
     }
 
     buttonStop.setOnClickListener {

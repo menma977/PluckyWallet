@@ -276,6 +276,7 @@ class BotMenuActivity : AppCompatActivity() {
     loading.openDialog()
     Timer().schedule(1000) {
       response = WebOldController.Post(2, bodyBot("StartTrading")).execute().get()
+      println(response)
       try {
         if (response.getInt("code") == 200) {
           user.setBoolean("ifPlay", response.getJSONObject("data").getBoolean("main"))
@@ -287,6 +288,7 @@ class BotMenuActivity : AppCompatActivity() {
             goTo.putExtra("uniqueCode", uniqueCode)
             goTo.putExtra("balance", balanceValue)
             goTo.putExtra("target", response.getJSONObject("data").getDouble("persen").div(100).toBigDecimal())
+            goTo.putExtra("resultBot1", response.getJSONObject("data").getString("menangbot1").toBigDecimal())
             runOnUiThread {
               startActivity(goTo)
               finish()
@@ -323,6 +325,7 @@ class BotMenuActivity : AppCompatActivity() {
             goTo.putExtra("uniqueCode", uniqueCode)
             goTo.putExtra("balance", balanceValue)
             goTo.putExtra("target", response.getJSONObject("data").getDouble("persen").div(100).toBigDecimal())
+            goTo.putExtra("resultBot1", response.getJSONObject("data").getString("menangbot1").toBigDecimal())
             runOnUiThread {
               startActivity(goTo)
               finish()

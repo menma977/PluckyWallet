@@ -163,6 +163,7 @@ class NavigationActivity : AppCompatActivity() {
           user.setString("dollar", response.getJSONObject("data").getString("dollar"))
           user.setBoolean("suspend", response.getJSONObject("data").getJSONObject("user").getInt("suspend") == 1)
           user.setBoolean("isWin", response.getJSONObject("data").getBoolean("isWin"))
+          user.setInteger("limitPlay", response.getJSONObject("data").getInt("limitPlay"))
 
           runOnUiThread {
             getBalance()
