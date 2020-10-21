@@ -101,7 +101,7 @@ class Bot3Activity : AppCompatActivity() {
     buttonContinue.setOnClickListener {
       if (balanceRemaining >= balanceLimit && balanceRemaining != BigDecimal(0)) {
         buttonContinue.visibility = Button.GONE
-        Toast.makeText(this, "Your are on limit from ${user.getInteger("limitPlay")}X WIN BOT 1", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "You are on limit from ${user.getInteger("limitPlay")} times WIN BOT 1", Toast.LENGTH_SHORT).show()
       } else {
         buttonContinue.visibility = Button.GONE
         balance = balanceRemaining
