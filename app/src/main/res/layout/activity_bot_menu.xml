@@ -220,7 +220,7 @@
           android:orientation="horizontal">
 
         <TextView
-            android:text="@string/minimum_3000"
+            android:text="Min: 10000"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/Danger"

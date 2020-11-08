@@ -121,8 +121,8 @@ class BotMenuActivity : AppCompatActivity() {
         editTextDoge.text.toString().isEmpty() -> {
           Toast.makeText(this, "Doge cant be empty", Toast.LENGTH_SHORT).show()
         }
-        editTextDoge.text.toString().toBigDecimal() < BigDecimal(3000) -> {
-          Toast.makeText(this, "Min doge is 3000", Toast.LENGTH_SHORT).show()
+        editTextDoge.text.toString().toBigDecimal() < BigDecimal(10000) -> {
+          Toast.makeText(this, "Min doge is 10000", Toast.LENGTH_SHORT).show()
         }
         editTextDoge.text.toString().toBigDecimal() > balanceSet -> {
           Toast.makeText(this, "Max doge is $balanceSet", Toast.LENGTH_SHORT).show()
