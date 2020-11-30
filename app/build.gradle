@@ -10,8 +10,8 @@ android {
         applicationId "com.plucky.wallet"
         minSdkVersion 22
         targetSdkVersion 29
-        versionCode 18
-        versionName "3.18"
+        versionCode 19
+        versionName "3.19"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
