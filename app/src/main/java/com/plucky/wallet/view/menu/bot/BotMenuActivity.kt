@@ -114,22 +114,20 @@ class BotMenuActivity : AppCompatActivity() {
     val countDollar = bitCoinFormat.decimalToDoge(balanceValue) * dollarValue
     dollar.text = bitCoinFormat.toDollar(countDollar).toPlainString()
 
-    buttonBot1.setOnClickListener {
-      val maxBot1 = bitCoinFormat.decimalToDoge(bitCoinFormat.dogeToDecimal(user.getString("maxBot1").toBigDecimal()))
+    buttonBot1.setOnClickListener { //      val maxBot1 = bitCoinFormat.decimalToDoge(bitCoinFormat.dogeToDecimal(user.getString("maxBot1").toBigDecimal()))
       val balanceSet = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal())
       when {
         editTextDoge.text.toString().isEmpty() -> {
           Toast.makeText(this, "Doge cant be empty", Toast.LENGTH_SHORT).show()
         }
-        editTextDoge.text.toString().toBigDecimal() < BigDecimal(3000) -> {
-          Toast.makeText(this, "Min doge is 3000", Toast.LENGTH_SHORT).show()
+        editTextDoge.text.toString().toBigDecimal() < BigDecimal(1) -> {
+          Toast.makeText(this, "Min doge is 1", Toast.LENGTH_SHORT).show()
         }
         editTextDoge.text.toString().toBigDecimal() > balanceSet -> {
           Toast.makeText(this, "Max doge is $balanceSet", Toast.LENGTH_SHORT).show()
-        }
-        editTextDoge.text.toString().toBigDecimal() > maxBot1 -> {
-          Toast.makeText(this, "Max doge is $maxBot1", Toast.LENGTH_SHORT).show()
-        }
+        } //        editTextDoge.text.toString().toBigDecimal() > maxBot1 -> {
+        //          Toast.makeText(this, "Max doge is $maxBot1", Toast.LENGTH_SHORT).show()
+        //        }
         else -> {
           currentBalance = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
           beatingBalance = BitCoinFormat().decimalToDoge(BitCoinFormat().dogeToDecimal(editTextDoge.text.toString().toBigDecimal())).toPlainString()
@@ -144,15 +142,14 @@ class BotMenuActivity : AppCompatActivity() {
         editTextDoge2.text.toString().isEmpty() -> {
           Toast.makeText(this, "Doge cant be empty", Toast.LENGTH_SHORT).show()
         }
-        editTextDoge2.text.toString().toBigDecimal() < BigDecimal(3000) -> {
-          Toast.makeText(this, "Min doge is 3000", Toast.LENGTH_SHORT).show()
+        editTextDoge2.text.toString().toBigDecimal() < BigDecimal(1) -> {
+          Toast.makeText(this, "Min doge is 1", Toast.LENGTH_SHORT).show()
         }
         editTextDoge2.text.toString().toBigDecimal() > balanceSet -> {
           Toast.makeText(this, "Max doge is $balanceSet", Toast.LENGTH_SHORT).show()
-        }
-        editTextDoge2.text.toString().toBigDecimal() > user.getString("maxDeposit").replace(",", ".").toBigDecimal() -> {
-          Toast.makeText(this, "Max doge is ${user.getString("maxDeposit").replace(",", ".").toBigDecimal()}", Toast.LENGTH_SHORT).show()
-        }
+        } //        editTextDoge2.text.toString().toBigDecimal() > user.getString("maxDeposit").replace(",", ".").toBigDecimal() -> {
+        //          Toast.makeText(this, "Max doge is ${user.getString("maxDeposit").replace(",", ".").toBigDecimal()}", Toast.LENGTH_SHORT).show()
+        //        }
         else -> {
           currentBalance = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
           beatingBalance = BitCoinFormat().decimalToDoge(BitCoinFormat().dogeToDecimal(editTextDoge2.text.toString().toBigDecimal())).toPlainString()
@@ -168,15 +165,14 @@ class BotMenuActivity : AppCompatActivity() {
         editTextDoge3.text.toString().isEmpty() -> {
           Toast.makeText(this, "Doge cant be empty", Toast.LENGTH_SHORT).show()
         }
-        editTextDoge3.text.toString().toBigDecimal() < BigDecimal(3000) -> {
-          Toast.makeText(this, "Min doge is 3000", Toast.LENGTH_SHORT).show()
+        editTextDoge3.text.toString().toBigDecimal() < BigDecimal(1) -> {
+          Toast.makeText(this, "Min doge is 1", Toast.LENGTH_SHORT).show()
         }
         editTextDoge3.text.toString().toBigDecimal() > balanceSet -> {
           Toast.makeText(this, "Max doge is $balanceSet", Toast.LENGTH_SHORT).show()
-        }
-        editTextDoge3.text.toString().toBigDecimal() > user.getString("maxDeposit").replace(",", ".").toBigDecimal() -> {
-          Toast.makeText(this, "Max doge is ${user.getString("maxDeposit").replace(",", ".").toBigDecimal()}", Toast.LENGTH_SHORT).show()
-        }
+        } //        editTextDoge3.text.toString().toBigDecimal() > user.getString("maxDeposit").replace(",", ".").toBigDecimal() -> {
+        //          Toast.makeText(this, "Max doge is ${user.getString("maxDeposit").replace(",", ".").toBigDecimal()}", Toast.LENGTH_SHORT).show()
+        //        }
         else -> {
           currentBalance = BitCoinFormat().decimalToDoge(user.getString("balanceValue").toBigDecimal()).toPlainString()
           beatingBalance = BitCoinFormat().decimalToDoge(BitCoinFormat().dogeToDecimal(editTextDoge3.text.toString().toBigDecimal())).toPlainString()
@@ -219,11 +215,10 @@ class BotMenuActivity : AppCompatActivity() {
             editTextDoge.setText(balanceSet.toPlainString())
           } else {
             editTextDoge.setText(BigDecimal(22000).toPlainString())
-          }
-
-          maxDepositText.text = "Max: " + bitCoinFormat.decimalToDoge(bitCoinFormat.dogeToDecimal(user.getString("maxBot1").toBigDecimal())).toPlainString()
-          maxDepositText2.text = "Max: " + user.getString("maxDeposit")
-          maxDepositText3.text = "Max: " + user.getString("maxDeposit")
+          } //          maxDepositText.text = "Max: " + bitCoinFormat.decimalToDoge(bitCoinFormat.dogeToDecimal(user.getString("maxBot1").toBigDecimal())).toPlainString()
+          maxDepositText.text = "Max: " + bitCoinFormat.decimalToDoge(user.getString("balanceValue").toBigDecimal())
+          maxDepositText2.text = "Max: " + bitCoinFormat.decimalToDoge(user.getString("balanceValue").toBigDecimal())
+          maxDepositText3.text = "Max: " + bitCoinFormat.decimalToDoge(user.getString("balanceValue").toBigDecimal())
           loading.closeDialog()
 
           if (user.getBoolean("isLogout")) {
@@ -276,7 +271,6 @@ class BotMenuActivity : AppCompatActivity() {
     loading.openDialog()
     Timer().schedule(1000) {
       response = WebOldController.Post(2, bodyBot("StartTrading")).execute().get()
-      println(response)
       try {
         if (response.getInt("code") == 200) {
           user.setBoolean("ifPlay", response.getJSONObject("data").getBoolean("main"))
@@ -437,11 +431,13 @@ class BotMenuActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     override fun onReceive(context: Context, intent: Intent) {
       plucky.text = bitCoinFormat.toPlucky(BigDecimal(user.getString("plucky"))).toPlainString()
-      greade.text = user.getString("grade")
-
-      maxDepositText.text = "Max: " + bitCoinFormat.decimalToDoge(bitCoinFormat.dogeToDecimal(user.getString("maxBot1").toBigDecimal())).toPlainString()
-      maxDepositText2.text = "Max: " + user.getString("maxDeposit")
-      maxDepositText3.text = "Max: " + user.getString("maxDeposit")
+      greade.text = user.getString("grade") //      maxDepositText.text = "Max: " + bitCoinFormat.decimalToDoge(bitCoinFormat.dogeToDecimal(user.getString("maxBot1").toBigDecimal())).toPlainString()
+      //      maxDepositText.text = "Max: " + user.getString("maxDeposit")
+      //      maxDepositText2.text = "Max: " + user.getString("maxDeposit")
+      //      maxDepositText3.text = "Max: " + user.getString("maxDeposit")
+      maxDepositText.text = "Max: " + bitCoinFormat.decimalToDoge(user.getString("balanceValue").toBigDecimal())
+      maxDepositText2.text = "Max: " + bitCoinFormat.decimalToDoge(user.getString("balanceValue").toBigDecimal())
+      maxDepositText3.text = "Max: " + bitCoinFormat.decimalToDoge(user.getString("balanceValue").toBigDecimal())
     }
   }
 
@@ -458,8 +454,7 @@ class BotMenuActivity : AppCompatActivity() {
         hexString.append(h)
       }
       return hexString.toString()
-    } catch (e: NoSuchAlgorithmException) {
-      //e.printStackTrace()
+    } catch (e: NoSuchAlgorithmException) { //e.printStackTrace()
     }
     return ""
   }

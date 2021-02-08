@@ -201,8 +201,8 @@ class Bot3Activity : AppCompatActivity() {
 
   private fun configChart() {
     series.color = getColor(R.color.colorAccent)
-    cubicLineChart.axisTextColor = getColor(R.color.textSecondary)
-    cubicLineChart.containsPoints()
+//    cubicLineChart.axisTextColor = getColor(R.color.textSecondary)
+//    cubicLineChart.containsPoints()
     cubicLineChart.isUseDynamicScaling = true
     cubicLineChart.addSeries(series)
     cubicLineChart.startAnimation()

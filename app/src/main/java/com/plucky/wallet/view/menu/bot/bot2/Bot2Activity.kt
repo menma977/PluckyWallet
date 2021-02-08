@@ -200,9 +200,8 @@ class Bot2Activity : AppCompatActivity() {
   }
 
   private fun configChart() {
-    series.color = getColor(R.color.colorAccent)
-    cubicLineChart.axisTextColor = getColor(R.color.textSecondary)
-    cubicLineChart.containsPoints()
+    series.color = getColor(R.color.colorAccent) //    cubicLineChart.axisTextColor = getColor(R.color.textSecondary)
+    //    cubicLineChart.containsPoints()
     cubicLineChart.isUseDynamicScaling = true
     cubicLineChart.addSeries(series)
     cubicLineChart.startAnimation()
@@ -244,8 +243,7 @@ class Bot2Activity : AppCompatActivity() {
           response = DogeController(body).execute().get()
           if (response["code"] == 200) {
             seed = response.getJSONObject("data")["Next"].toString()
-            payOut = response.getJSONObject("data")["PayOut"].toString().toBigDecimal()
-            //balanceRemaining = response.getJSONObject("data")["StartingBalance"].toString().toBigDecimal()
+            payOut = response.getJSONObject("data")["PayOut"].toString().toBigDecimal() //balanceRemaining = response.getJSONObject("data")["StartingBalance"].toString().toBigDecimal()
             profit = payOut - payIn
             balanceRemaining += profit
             loseBot = profit < BigDecimal(0)
